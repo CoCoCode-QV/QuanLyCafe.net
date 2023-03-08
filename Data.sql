@@ -58,3 +58,20 @@ CREATE TABLE Billinfo(
 	 Foreign Key (billID) references dbo.Bill(billID),
 	 Foreign Key (foodID) references dbo.Food(FoodID)
 )go
+
+-- Thêm dữ liệu 
+
+INSERT INTO dbo.Account(userName,displayName,password,Type)
+VALUES(
+	N'Admin',
+	N'Admin',
+	N'Admin123',
+	1
+)
+INSERT INTO dbo.Account(userName,displayName,password,Type)
+VALUES(
+	N'Staff',
+	N'Staff',
+	N'Staff123',
+	0
+)
