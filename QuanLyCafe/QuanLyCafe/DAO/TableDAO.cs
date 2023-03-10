@@ -23,16 +23,16 @@ namespace QuanLyCafe.DAO
 
         #endregion
 
-        public List<TableDTO> loadTableList()
+        public List<Table> loadTableList()
         {
 
-            List<TableDTO> tableList = new List<TableDTO>();
+            List<Table> tableList = new List<Table>();
 
             DataTable data = DataProvider.Instance.ExecuteQuery("exec PR_LoadTable");
 
             foreach(DataRow item in data.Rows)
             {
-                TableDTO table = new TableDTO(item);
+                Table table = new Table(item);
                 tableList.Add(table);
 
             }

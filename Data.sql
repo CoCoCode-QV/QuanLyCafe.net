@@ -75,6 +75,46 @@ VALUES(
 	N'Staff123',
 	0
 )
+--Thêm category
+
+INSERT dbo.FoodCategory(name)
+values (N'Cafe')
+
+INSERT dbo.FoodCategory(name)
+values (N'Nước Ngọt')
+
+INSERT dbo.FoodCategory(name)
+values (N'Bánh ngọt')
+
+--Thêm Food
+
+
+INSERT dbo.Food(name,CategoryID,price)
+values (N'Capuchino',1, 25000)
+
+INSERT dbo.Food(name,CategoryID,price)
+values (N'Coca',2, 10000)
+
+INSERT dbo.Food(name,CategoryID,price)
+values (N'Pepsi',2, 10000)
+
+INSERT dbo.Food(name,CategoryID,price)
+values (N'Bánh flan',3, 10000)
+
+
+--Thêm bill
+
+insert dbo.Bill(dateCheckin,dateCheckOut,TableID,statusBill)
+values(GETDATE(),
+	 null,
+	 12,
+	 0
+)
+-- thêm billInfo
+Insert dbo.Billinfo(billID,foodID,count)
+values(2,1,2)
+
+
 
 -- tạo Procedure
 -- Login
@@ -93,17 +133,15 @@ end
 DECLARE  @i int = 1
 while @i <= 10
 Begin
-	Insert dbo.TableFood (nameFood) values (N'Bàn ' + CAST( @i as nvarchar(100)))
+	Insert dbo.TableFood (nameTable) values (N'Bàn ' + CAST( @i as nvarchar(100)))
 	set @i = @i+1
 end
 
 -- tạo Procedure load table
 go 
 create proc PR_LoadTable
+as select *from TableFood
 
-as
-begin 
-	select * from dbo.TableFood 
-end
+exec PR_LoadTable
 
 

@@ -35,7 +35,7 @@ namespace QuanLyCafe
             this.thôngTinCáNhânToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.đăngXuấtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listViewBill = new System.Windows.Forms.ListView();
             this.panel3 = new System.Windows.Forms.Panel();
             this.cbSwitchTable = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -49,6 +49,8 @@ namespace QuanLyCafe
             this.cbFood = new System.Windows.Forms.ComboBox();
             this.cbCategory = new System.Windows.Forms.ComboBox();
             this.flPanelTable = new System.Windows.Forms.FlowLayoutPanel();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -101,20 +103,25 @@ namespace QuanLyCafe
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.listView1);
+            this.panel2.Controls.Add(this.listViewBill);
             this.panel2.Location = new System.Drawing.Point(680, 121);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(464, 544);
             this.panel2.TabIndex = 1;
             // 
-            // listView1
+            // listViewBill
             // 
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(3, 3);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(458, 538);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listViewBill.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.listViewBill.GridLines = true;
+            this.listViewBill.HideSelection = false;
+            this.listViewBill.Location = new System.Drawing.Point(3, 3);
+            this.listViewBill.Name = "listViewBill";
+            this.listViewBill.Size = new System.Drawing.Size(458, 538);
+            this.listViewBill.TabIndex = 0;
+            this.listViewBill.UseCompatibleStateImageBehavior = false;
+            this.listViewBill.View = System.Windows.Forms.View.Details;
             // 
             // panel3
             // 
@@ -247,6 +254,14 @@ namespace QuanLyCafe
             this.flPanelTable.Size = new System.Drawing.Size(662, 631);
             this.flPanelTable.TabIndex = 4;
             // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "id food";
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "count";
+            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -281,7 +296,7 @@ namespace QuanLyCafe
         private System.Windows.Forms.ToolStripMenuItem thôngTinCáNhânToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem đăngXuấtToolStripMenuItem;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listViewBill;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.ComboBox cbFood;
@@ -295,5 +310,7 @@ namespace QuanLyCafe
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbSwitchTable;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }

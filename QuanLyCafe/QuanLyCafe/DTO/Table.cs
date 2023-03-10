@@ -7,24 +7,24 @@ using System.Threading.Tasks;
 
 namespace QuanLyCafe.DTO
 {
-    class TableDTO
+    class Table
     {
         private int _id;
         private string _name;
         private string _status;
 
-        public TableDTO(int id, string name, string status)
+        public Table(int id, string name, string status)
         {
             this.Id = id;
             this.Name = name;
             this.Status = status;
         }
 
-        public TableDTO(DataRow row)
+        public Table(DataRow row)
         {
             this.Id = (int)row["TableId"];
-            this.Name =(string) row["nameFood"];
-            this.Status = (string)row["statusFood"];
+            this.Name =(string) row["nameTable"];
+            this.Status = (string) row["statusTable"];
 
         }
 
