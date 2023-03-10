@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLyCafe.DAO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,10 +25,25 @@ namespace QuanLyCafe
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            fMain f = new fMain();
-            this.Hide();
-            f.ShowDialog();
-            this.Show();
+            string username = txtbUserName.Text;
+            string passWord = txtbPassWord.Text;
+            if (isLogin(username,passWord))
+            {
+                fMain f = new fMain();
+                this.Hide();
+                f.ShowDialog();
+                this.Show();
+            }
+            else
+            {
+                MessageBox.Show("Sai tên tài khoản hoặc mật khẩu!");
+            }
+        }
+
+        private bool isLogin(string username, string password)
+        {
+
+            return AccountDAO.Ins.isLogin(username, password);
         }
 
         private void fLogin_FormClosing(object sender, FormClosingEventArgs e)

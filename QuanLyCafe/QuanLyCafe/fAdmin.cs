@@ -17,16 +17,14 @@ namespace QuanLyCafe
         public fAdmin()
         {
             InitializeComponent();
-            LoadAccountList();
+          
         }
         void LoadAccountList()
         {
             string query = "Select * from dbo.Account";
-            
+
             dataGridViewAccount.DataSource = DataProvider.Instance.ExecuteQuery(query);
 
         }
-
-   
     }
 }

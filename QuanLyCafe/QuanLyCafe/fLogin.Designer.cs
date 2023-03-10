@@ -59,6 +59,7 @@ namespace QuanLyCafe
             this.btnExit.BackColor = System.Drawing.Color.Red;
             this.btnExit.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.Color.White;
@@ -101,6 +102,7 @@ namespace QuanLyCafe
             this.txtbPassWord.Name = "txtbPassWord";
             this.txtbPassWord.Size = new System.Drawing.Size(252, 22);
             this.txtbPassWord.TabIndex = 2;
+            this.txtbPassWord.Text = "Admin123";
             this.txtbPassWord.UseSystemPasswordChar = true;
             // 
             // label2
@@ -128,6 +130,7 @@ namespace QuanLyCafe
             this.txtbUserName.Name = "txtbUserName";
             this.txtbUserName.Size = new System.Drawing.Size(252, 22);
             this.txtbUserName.TabIndex = 1;
+            this.txtbUserName.Text = "Admin";
             // 
             // label1
             // 

@@ -75,3 +75,35 @@ VALUES(
 	N'Staff123',
 	0
 )
+
+-- tạo Procedure
+-- Login
+
+go 
+create proc PR_Login
+@username nvarchar(100), @password nvarchar(100)
+as
+begin 
+	select * from dbo.Account 
+	where userName = @username and password = @password COLLATE Latin1_General_CS_AS 
+end
+
+
+-- tạo bàn
+DECLARE  @i int = 1
+while @i <= 10
+Begin
+	Insert dbo.TableFood (nameFood) values (N'Bàn ' + CAST( @i as nvarchar(100)))
+	set @i = @i+1
+end
+
+-- tạo Procedure load table
+go 
+create proc PR_LoadTable
+
+as
+begin 
+	select * from dbo.TableFood 
+end
+
+
