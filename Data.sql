@@ -145,3 +145,6 @@ as select *from TableFood
 exec PR_LoadTable
 
 
+select 
+from Food f, Bill B, Billinfo Bi
+where f.FoodID = Bi.billID and bi.billID = b.billID

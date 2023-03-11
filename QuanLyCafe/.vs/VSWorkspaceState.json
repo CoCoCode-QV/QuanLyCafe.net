@@ -1,8 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\QuanLyCafe",
-    "\\QuanLyCafe\\bin"
+    "\\QuanLyCafe\\bin",
+    "\\QuanLyCafe\\DAO"
   ],
   "SelectedNode": "\\QuanLyCafe.sln",
   "PreviewInSolutionExplorer": false

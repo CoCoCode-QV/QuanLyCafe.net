@@ -35,7 +35,6 @@ namespace QuanLyCafe
             this.thôngTinCáNhânToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.đăngXuấtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.listViewBill = new System.Windows.Forms.ListView();
             this.panel3 = new System.Windows.Forms.Panel();
             this.cbSwitchTable = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -51,6 +50,9 @@ namespace QuanLyCafe
             this.flPanelTable = new System.Windows.Forms.FlowLayoutPanel();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.listViewBill = new System.Windows.Forms.ListView();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -67,7 +69,7 @@ namespace QuanLyCafe
             this.thôngTinTàiKhoảnToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1326, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1326, 28);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -108,20 +110,6 @@ namespace QuanLyCafe
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(464, 544);
             this.panel2.TabIndex = 1;
-            // 
-            // listViewBill
-            // 
-            this.listViewBill.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
-            this.listViewBill.GridLines = true;
-            this.listViewBill.HideSelection = false;
-            this.listViewBill.Location = new System.Drawing.Point(3, 3);
-            this.listViewBill.Name = "listViewBill";
-            this.listViewBill.Size = new System.Drawing.Size(458, 538);
-            this.listViewBill.TabIndex = 0;
-            this.listViewBill.UseCompatibleStateImageBehavior = false;
-            this.listViewBill.View = System.Windows.Forms.View.Details;
             // 
             // panel3
             // 
@@ -256,11 +244,41 @@ namespace QuanLyCafe
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "id food";
+            this.columnHeader1.Text = "Tên món";
+            this.columnHeader1.Width = 80;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "count";
+            this.columnHeader2.Text = "Số lượng";
+            this.columnHeader2.Width = 75;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Đơn giá";
+            this.columnHeader3.Width = 90;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Thành tiền";
+            this.columnHeader4.Width = 100;
+            // 
+            // listViewBill
+            // 
+            this.listViewBill.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4});
+            this.listViewBill.Enabled = false;
+            this.listViewBill.GridLines = true;
+            this.listViewBill.HideSelection = false;
+            this.listViewBill.Location = new System.Drawing.Point(3, 0);
+            this.listViewBill.Name = "listViewBill";
+            this.listViewBill.Size = new System.Drawing.Size(461, 541);
+            this.listViewBill.TabIndex = 0;
+            this.listViewBill.UseCompatibleStateImageBehavior = false;
+            this.listViewBill.View = System.Windows.Forms.View.Details;
+            this.listViewBill.SelectedIndexChanged += new System.EventHandler(this.listViewBill_SelectedIndexChanged);
             // 
             // fMain
             // 
@@ -296,7 +314,6 @@ namespace QuanLyCafe
         private System.Windows.Forms.ToolStripMenuItem thôngTinCáNhânToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem đăngXuấtToolStripMenuItem;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.ListView listViewBill;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.ComboBox cbFood;
@@ -310,7 +327,10 @@ namespace QuanLyCafe
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbSwitchTable;
+        private System.Windows.Forms.ListView listViewBill;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
     }
 }

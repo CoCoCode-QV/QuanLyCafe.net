@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Menu = QuanLyCafe.DTO.Menu;
 
 namespace QuanLyCafe
 {
@@ -47,12 +48,15 @@ namespace QuanLyCafe
         private void showBill(int index)
         {
             listViewBill.Items.Clear();
-            List<BillInfo> listBillInfo = BillInfoDAO.Ins.GetListBillInfo(BillDAO.Ins.getUnchecBillIdbyTableID(index));
+            List<Menu> ListBillInfo = MenuDAO.Ins.GetListMenuByTable(index);
 
-            foreach(BillInfo item in listBillInfo)
+            foreach(Menu item in ListBillInfo)
             {
-                ListViewItem listViewItem = new ListViewItem(item.FoodId.ToString());
+                ListViewItem listViewItem = new ListViewItem(item.FoodName.ToString());
+
                 listViewItem.SubItems.Add(item.Count.ToString());
+                listViewItem.SubItems.Add(item.Price.ToString());
+                listViewItem.SubItems.Add(item.Total.ToString());
                 listViewBill.Items.Add(listViewItem);
             }
 
@@ -86,5 +90,10 @@ namespace QuanLyCafe
         }
 
         #endregion
+
+        private void listViewBill_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
