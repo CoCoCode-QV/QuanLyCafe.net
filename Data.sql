@@ -59,7 +59,7 @@ CREATE TABLE Billinfo(
 	 Foreign Key (foodID) references dbo.Food(FoodID)
 )go
 
--- Thêm dữ liệu 
+-- add dữ liệu 
 
 INSERT INTO dbo.Account(userName,displayName,password,Type)
 VALUES(
@@ -75,7 +75,7 @@ VALUES(
 	N'Staff123',
 	0
 )
---Thêm category
+--add category
 
 INSERT dbo.FoodCategory(name)
 values (N'Cafe')
@@ -86,7 +86,7 @@ values (N'Nước Ngọt')
 INSERT dbo.FoodCategory(name)
 values (N'Bánh ngọt')
 
---Thêm Food
+--add Food
 
 
 INSERT dbo.Food(name,CategoryID,price)
@@ -102,7 +102,7 @@ INSERT dbo.Food(name,CategoryID,price)
 values (N'Bánh flan',3, 10000)
 
 
---Thêm bill
+--add bill
 
 insert dbo.Bill(dateCheckin,dateCheckOut,TableID,statusBill)
 values(GETDATE(),
@@ -110,13 +110,13 @@ values(GETDATE(),
 	 12,
 	 0
 )
--- thêm billInfo
+-- add billInfo
 Insert dbo.Billinfo(billID,foodID,count)
 values(2,1,2)
 
 
 
--- tạo Procedure
+-- create Procedure
 -- Login
 
 go 
@@ -129,7 +129,7 @@ begin
 end
 
 
--- tạo bàn
+-- create table
 DECLARE  @i int = 1
 while @i <= 10
 Begin
@@ -137,7 +137,7 @@ Begin
 	set @i = @i+1
 end
 
--- tạo Procedure load table
+-- create Procedure load table
 go 
 create proc PR_LoadTable
 as select *from TableFood
@@ -145,6 +145,28 @@ as select *from TableFood
 exec PR_LoadTable
 
 
-select 
-from Food f, Bill B, Billinfo Bi
-where f.FoodID = Bi.billID and bi.billID = b.billID
+-- Create Procedure insertBill
+go
+create proc PR_InsertBill
+@TableId int
+as
+begin
+	insert dbo.Bill(dateCheckin,dateCheckOut,TableID,statusBill)
+	values(GETDATE(),
+	 null,
+	 @TableId,
+	 0
+	)
+end
+
+
+go 
+create proc PR_InsertBillInfo
+@idBill int, @idFood int, @count int
+as
+begin
+Insert dbo.Billinfo(billID,foodID,count)
+values(@idBill,@idFood,@count)
+end
+
+exec PR_InsertBillInfo @idBill, @idFood, @count

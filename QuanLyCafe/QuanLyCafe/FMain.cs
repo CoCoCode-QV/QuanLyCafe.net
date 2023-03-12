@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace QuanLyCafe
         {
             InitializeComponent();
             LoadTable();
+            loadCategory();
         }
 
         #region Method
@@ -31,6 +33,7 @@ namespace QuanLyCafe
                 Button btn = new Button() { Width = 100, Height = 100 };
                 btn.Text = item.Name;
                 btn.Name = item.Id.ToString();
+                btn.Tag = item;
                 btn.Click += Btn_Click;
                 switch(item.Status)
                 {
@@ -49,6 +52,7 @@ namespace QuanLyCafe
         {
             listViewBill.Items.Clear();
             List<Menu> ListBillInfo = MenuDAO.Ins.GetListMenuByTable(index);
+            float TotalPrice = 0;
 
             foreach(Menu item in ListBillInfo)
             {
@@ -57,9 +61,26 @@ namespace QuanLyCafe
                 listViewItem.SubItems.Add(item.Count.ToString());
                 listViewItem.SubItems.Add(item.Price.ToString());
                 listViewItem.SubItems.Add(item.Total.ToString());
+                TotalPrice += item.Total ;
                 listViewBill.Items.Add(listViewItem);
             }
+            string strPrice = string.Format(new CultureInfo("vi-VN"), "{0:#,##0} VNĐ", TotalPrice);
+            txtTotalPrice.Text = strPrice;
 
+        }
+
+        private void loadCategory()
+        {
+            List<Category> listCategory = CategoryDAO.Ins.GetListCategory();
+            cbCategory.DataSource = listCategory;
+            cbCategory.DisplayMember = "Name";
+        }
+
+        private void LoadFoodListByCategoryID(int id)
+        {
+            List<Food> listFood = FoodDAO.Ins.GetFoodByCategoryID(id);
+            cbFood.DataSource = listFood;
+            cbFood.DisplayMember = "name";
         }
         #endregion
 
@@ -67,7 +88,7 @@ namespace QuanLyCafe
         private void Btn_Click(object sender, EventArgs e)
         {
             int tableId = Convert.ToInt32((sender as Button).Name);
-
+            listViewBill.Tag = (sender as Button).Tag;
             showBill(tableId);
         }
 
@@ -89,11 +110,24 @@ namespace QuanLyCafe
             f.ShowDialog();
         }
 
-        #endregion
+        private void cbCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+      
+            ComboBox cb = sender as ComboBox;
+            if (cb.SelectedItem == null)
+                return;
+            Category selected = cb.SelectedItem as Category;
+            int id = selected.CategoryID;
+            LoadFoodListByCategoryID(id);
+        }
 
-        private void listViewBill_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnAddFood_Click(object sender, EventArgs e)
         {
 
         }
+
+        #endregion
+
+
     }
 }

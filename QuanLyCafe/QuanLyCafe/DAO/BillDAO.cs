@@ -33,5 +33,9 @@ namespace QuanLyCafe.DAO
             }
             return -1;
         }
+        public void insetBill(int id)
+        {
+            DataProvider.Instance.ExecuteNonQuery("exec PR_InsertBill @TableId ", new object[] { id });
+        }
     }
 }
