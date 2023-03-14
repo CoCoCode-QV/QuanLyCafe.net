@@ -29,7 +29,7 @@ namespace QuanLyCafe.DAO
 
             DataTable data = DataProvider.Instance.ExecuteQuery("select *from Billinfo where billID = " + Billid);
 
-            foreach(DataRow item in data.Rows)
+            foreach (DataRow item in data.Rows)
             {
                 BillInfo info = new BillInfo(item);
                 ListInfo.Add(info);
@@ -40,7 +40,7 @@ namespace QuanLyCafe.DAO
 
         public void insetBillInfo(int idBill, int idFood, int Count)
         {
-            DataProvider.Instance.ExecuteNonQuery("exec PR_InsertBillInfo @idBill, @idFood, @count ", new object[] { idBill,idFood,Count });
+            DataProvider.Instance.ExecuteNonQuery("exec PR_InsertBillInfo @idBill , @idFood , @count ", new object[] { idBill , idFood , Count });
         }
     }
 }

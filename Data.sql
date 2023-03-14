@@ -160,13 +160,41 @@ begin
 end
 
 
+
 go 
 create proc PR_InsertBillInfo
 @idBill int, @idFood int, @count int
 as
 begin
-Insert dbo.Billinfo(billID,foodID,count)
-values(@idBill,@idFood,@count)
+	Declare @isExitsBillinfo int = -1
+	Declare @foodCount int = 1
+
+	select @isExitsBillinfo	 = billInfoID, @foodCount = b.count
+	from dbo.Billinfo b
+	where billID = @idBill and foodID = @idFood
+
+	if (@isExitsBillinfo > 0)
+		begin 
+			Declare @newcount int = @foodCount + @count
+			if(@newcount > 0)
+				update dbo.Billinfo set count = @foodCount + @count where foodID = @idFood
+			else
+				Delete dbo.Billinfo where billID = @idBill and foodID = @idFood
+		end
+	else
+		begin
+			if( @count <0 )
+				return
+			Insert dbo.Billinfo(billID,foodID,count)
+			values(@idBill,@idFood,@count)
+		end
 end
 
-exec PR_InsertBillInfo @idBill, @idFood, @count
+
+
+select * from Bill
+select * from Billinfo
+select * from TableFood
+
+
+

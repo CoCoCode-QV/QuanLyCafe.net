@@ -25,7 +25,7 @@ namespace QuanLyCafe.DAO
 
         public int getUnchecBillIdbyTableID(int id)
         {
-            DataTable data = DataProvider.Instance.ExecuteQuery("Select *from dbo.Bill where TableID =" + id + "");
+            DataTable data = DataProvider.Instance.ExecuteQuery("Select *from dbo.Bill where statusBill = 0 and TableID = " + id );
             if(data.Rows.Count > 0)
             {
                 Bill bill = new Bill(data.Rows[0]);
@@ -33,9 +33,21 @@ namespace QuanLyCafe.DAO
             }
             return -1;
         }
-        public void insetBill(int id)
+
+        public void insertBill(int id)
         {
             DataProvider.Instance.ExecuteNonQuery("exec PR_InsertBill @TableId ", new object[] { id });
+        }
+
+        public int GetMaxIdBill()
+        {
+             return (int)   DataProvider.Instance.ExecuteScalar("select max(billID) from dbo.Bill");
+        }
+
+        public void CheckOut(int id)
+        {
+            string query = "Update dbo.Bill set statusBill = 1 where billID = " + id;
+            DataProvider.Instance.ExecuteNonQuery(query);
         }
     }
 }

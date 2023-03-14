@@ -123,9 +123,42 @@ namespace QuanLyCafe
 
         private void btnAddFood_Click(object sender, EventArgs e)
         {
+        
+            Table table = listViewBill.Tag as Table;
+            if (table == null)
+                return;
+            int idBill = BillDAO.Ins.getUnchecBillIdbyTableID(table.Id);
+            int foodId = (cbFood.SelectedItem as Food).Id;
+            int count = (int)nmFoodAccount.Value;
 
+            if(idBill == -1)
+            {
+                BillDAO.Ins.insertBill(table.Id);
+                BillInfoDAO.Ins.insetBillInfo(BillDAO.Ins.GetMaxIdBill(), foodId, count);
+            }
+            else
+            {
+                BillInfoDAO.Ins.insetBillInfo(idBill, foodId, count);
+            }
+            showBill(table.Id);
         }
 
+        private void btnCheckOut_Click(object sender, EventArgs e)
+        {
+            Table table = listViewBill.Tag as Table;
+            if (table == null)
+                return;
+            int idBill = BillDAO.Ins.getUnchecBillIdbyTableID(table.Id);
+            if(idBill != -1)
+            {
+                if(MessageBox.Show("Bạn có muốn thanh toán hóa đơn " + table.Name, "Thông báo", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                {
+                    BillDAO.Ins.CheckOut(idBill);
+                    showBill(table.Id);
+                }
+            }
+            
+        }
         #endregion
 
 

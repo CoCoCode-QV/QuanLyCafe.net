@@ -26,7 +26,7 @@ namespace QuanLyCafe.DAO
         {
             List<Menu> ListData = new List<Menu>();
 
-            string query = "select f.name, bi.count, f.price, Total = (f.price *bi.count) from Food f, Bill B, Billinfo Bi where f.FoodID = Bi.billID and bi.billID = b.billID and b.statusBill = 0 and b.TableID = " + id;
+            string query = "select f.name, bi.count, f.price, Total = (f.price *bi.count) from Food f, Bill B, Billinfo Bi where f.FoodID = Bi.foodID and bi.billID = b.billID and b.statusBill = 0 and b.TableID = " + id;
             DataTable data = DataProvider.Instance.ExecuteQuery(query); 
 
             foreach(DataRow item in data.Rows)

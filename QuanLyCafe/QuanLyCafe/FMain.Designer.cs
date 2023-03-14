@@ -222,6 +222,7 @@ namespace QuanLyCafe
             this.btnCheckOut.TabIndex = 6;
             this.btnCheckOut.Text = "Thanh Toán";
             this.btnCheckOut.UseVisualStyleBackColor = true;
+            this.btnCheckOut.Click += new System.EventHandler(this.btnCheckOut_Click);
             // 
             // btnSwitchTable
             // 
