@@ -162,12 +162,13 @@ end
 
 
 go 
-create proc PR_InsertBillInfo
+alter proc PR_InsertBillInfo
 @idBill int, @idFood int, @count int
 as
 begin
 	Declare @isExitsBillinfo int = -1
 	Declare @foodCount int = 1
+	Declare @countBillInfobyIdBill int = 0
 
 	select @isExitsBillinfo	 = billInfoID, @foodCount = b.count
 	from dbo.Billinfo b
@@ -179,7 +180,15 @@ begin
 			if(@newcount > 0)
 				update dbo.Billinfo set count = @foodCount + @count where foodID = @idFood
 			else
-				Delete dbo.Billinfo where billID = @idBill and foodID = @idFood
+				begin
+					Delete dbo.Billinfo where billID = @idBill and foodID = @idFood
+
+					select @countBillInfobyIdBill = COUNT(*)
+					from dbo.Billinfo
+					where billID = @idBill
+					if(@countBillInfobyIdBill = 0)
+						delete dbo.Bill where billID = @idBill
+				end
 		end
 	else
 		begin
@@ -188,6 +197,29 @@ begin
 			Insert dbo.Billinfo(billID,foodID,count)
 			values(@idBill,@idFood,@count)
 		end
+
+end
+
+
+
+go
+CREATE trigger  TR_TriggerBill
+on dbo.Bill for insert, update, delete
+as
+begin
+	DECLARE  @idBill int
+	select @idBill = billID  from inserted 
+
+	DECLARE @TableId int
+	select @TableId = TableID from dbo.Bill where billID = @idBill
+
+	DECLARE @count int = 0
+	select @count = COUNT(*) from dbo.Bill where TableID = @TableId and statusBill = 0
+
+	if(@count = 0 )
+		update dbo.TableFood set statusTable = N'Trống' where TableID = @TableId
+	else 
+		update dbo.TableFood set statusTable = N'Có người' where TableID = @TableId
 end
 
 
@@ -196,5 +228,6 @@ select * from Bill
 select * from Billinfo
 select * from TableFood
 
-
-
+delete dbo.Bill
+delete dbo.Billinfo
+delete dbo.TableFood

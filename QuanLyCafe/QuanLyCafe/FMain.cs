@@ -26,6 +26,7 @@ namespace QuanLyCafe
         #region Method
         private void LoadTable()
         {
+            flPanelTable.Controls.Clear();
             List<Table> Table =  TableDAO.Ins.loadTableList();
 
             foreach(Table item  in Table)
@@ -141,6 +142,7 @@ namespace QuanLyCafe
                 BillInfoDAO.Ins.insetBillInfo(idBill, foodId, count);
             }
             showBill(table.Id);
+            LoadTable();
         }
 
         private void btnCheckOut_Click(object sender, EventArgs e)
@@ -155,6 +157,7 @@ namespace QuanLyCafe
                 {
                     BillDAO.Ins.CheckOut(idBill);
                     showBill(table.Id);
+                    LoadTable();
                 }
             }
             

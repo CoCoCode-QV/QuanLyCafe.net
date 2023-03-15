@@ -46,7 +46,7 @@ namespace QuanLyCafe.DAO
 
         public void CheckOut(int id)
         {
-            string query = "Update dbo.Bill set statusBill = 1 where billID = " + id;
+            string query = "Update dbo.Bill set statusBill = 1 , dateCheckOut = GETDATE() where billID = " + id;
             DataProvider.Instance.ExecuteNonQuery(query);
         }
     }

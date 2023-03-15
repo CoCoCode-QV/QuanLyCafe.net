@@ -39,5 +39,10 @@ namespace QuanLyCafe.DAO
 
             return tableList;
         }
+
+        public void UpdateTable(Table table)
+        {
+            
+        }
     }
 }
