@@ -40,9 +40,9 @@ namespace QuanLyCafe.DAO
             return tableList;
         }
 
-        public void UpdateTable(Table table)
+        public void SwitchTablebyIDBill(int idTableOld, int idTableNew, int idBillOld, int idBillNew )
         {
-            
+            DataProvider.Instance.ExecuteQuery("exec PR_SwitchTable @IdTableOld , @IdTableNew , @IdBillOld , @IdBillNew", new object[] { idTableOld, idTableNew , idBillOld , idBillNew });
         }
     }
 }

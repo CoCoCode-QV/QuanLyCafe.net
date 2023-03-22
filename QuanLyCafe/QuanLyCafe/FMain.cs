@@ -21,6 +21,7 @@ namespace QuanLyCafe
             InitializeComponent();
             LoadTable();
             loadCategory();
+            loadComboBoxSwitchTable(cbSwitchTable);
         }
 
         #region Method
@@ -47,6 +48,13 @@ namespace QuanLyCafe
                 }    
                 flPanelTable.Controls.Add(btn);
             }
+        }
+
+        private void loadComboBoxSwitchTable(ComboBox cb)
+        {
+            List<Table> table = TableDAO.Ins.loadTableList();
+            cb.DataSource = table;
+            cb.DisplayMember = "Name";
         }
 
         private void showBill(int index)
@@ -134,8 +142,12 @@ namespace QuanLyCafe
 
             if(idBill == -1)
             {
-                BillDAO.Ins.insertBill(table.Id);
-                BillInfoDAO.Ins.insetBillInfo(BillDAO.Ins.GetMaxIdBill(), foodId, count);
+                if(count > 0)
+                {
+
+                    BillDAO.Ins.insertBill(table.Id);
+                    BillInfoDAO.Ins.insetBillInfo(BillDAO.Ins.GetMaxIdBill(), foodId, count);
+                }
             }
             else
             {
@@ -162,8 +174,46 @@ namespace QuanLyCafe
             }
             
         }
+
+        private void btnSwitchTable_Click(object sender, EventArgs e)
+        {
+
+            Table tableOld = listViewBill.Tag as Table;
+            Table tableNew = cbSwitchTable.SelectedItem as Table;
+            int idBillNew = BillDAO.Ins.getUnchecBillIdbyTableID(tableNew.Id);
+            int idBillOld = BillDAO.Ins.getUnchecBillIdbyTableID(tableOld.Id);
+
+            if (tableOld == null || tableNew == null || tableOld.Id == tableNew.Id)
+                return;
+
+            if (idBillNew == -1)
+            {
+                BillDAO.Ins.insertBill(tableNew.Id);
+                idBillNew = BillDAO.Ins.getUnchecBillIdbyTableID(tableNew.Id);
+            }
+            TableDAO.Ins.SwitchTablebyIDBill(tableOld.Id, tableNew.Id, idBillOld, idBillNew);
+            LoadTable();
+            //lỗi
+        }
+
+
+
+
         #endregion
 
+        private void nmDisCount_ValueChanged(object sender, EventArgs e)
+        {
+            Table table = listViewBill.Tag as Table;
+            List<Menu> ListBillInfo = MenuDAO.Ins.GetListMenuByTable(table.Id);
+            float TotalPrice = 0;
 
+            foreach(Menu item in ListBillInfo)
+            {
+                TotalPrice += item.Total;
+            }
+            float TotalReduce = TotalPrice - (TotalPrice * (float)nmDisCount.Value / 100);
+            string strPrice = string.Format(new CultureInfo("vi-VN"), "{0:#,##0} VNĐ", TotalReduce);
+            txtTotalPrice.Text = strPrice;
+        }
     }
 }

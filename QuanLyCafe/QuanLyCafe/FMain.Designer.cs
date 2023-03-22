@@ -213,6 +213,7 @@ namespace QuanLyCafe
             this.nmDisCount.Name = "nmDisCount";
             this.nmDisCount.Size = new System.Drawing.Size(144, 22);
             this.nmDisCount.TabIndex = 7;
+            this.nmDisCount.ValueChanged += new System.EventHandler(this.nmDisCount_ValueChanged);
             // 
             // btnCheckOut
             // 
@@ -232,6 +233,7 @@ namespace QuanLyCafe
             this.btnSwitchTable.TabIndex = 4;
             this.btnSwitchTable.Text = "Chuyển bàn";
             this.btnSwitchTable.UseVisualStyleBackColor = true;
+            this.btnSwitchTable.Click += new System.EventHandler(this.btnSwitchTable_Click);
             // 
             // panel4
             // 
