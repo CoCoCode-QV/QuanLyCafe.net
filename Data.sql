@@ -147,20 +147,20 @@ exec PR_LoadTable
 
 -- Create Procedure insertBill
 go
-create proc PR_InsertBill
+alter proc PR_InsertBill
 @TableId int
 as
 begin
 	insert dbo.Bill(dateCheckin,dateCheckOut,TableID,statusBill)
 	values(GETDATE(),
-	 null,
-	 @TableId,
-	 0
+			 null,
+			 @TableId,
+			 0
 	)
+
 end
 
-
-
+--Create procedure InsertBillInfo
 go 
 alter proc PR_InsertBillInfo
 @idBill int, @idFood int, @count int
@@ -197,21 +197,19 @@ begin
 			Insert dbo.Billinfo(billID,foodID,count)
 			values(@idBill,@idFood,@count)
 		end
-
 end
 
-
-
+--Create trigger catch event insert, update on bill
 go
-CREATE trigger  TR_TriggerBill
-on dbo.Bill for insert, update, delete
+alter trigger  TR_TriggerBill
+on dbo.Bill for insert, update
 as
 begin
 	DECLARE  @idBill int
 	select @idBill = billID  from inserted 
 
 	DECLARE @TableId int
-	select @TableId = TableID from dbo.Bill where billID = @idBill
+	select @TableId = TableID from dbo.Bill where billID = @idBill	
 
 	DECLARE @count int = 0
 	select @count = COUNT(*) from dbo.Bill where TableID = @TableId and statusBill = 0
@@ -222,12 +220,80 @@ begin
 		update dbo.TableFood set statusTable = N'Có người' where TableID = @TableId
 end
 
+-- xử lý bắt sự kiện delete bill
+
+
+
+
+
+
+
+--Create trigger catch event delete on bill
+go
+alter TRIGGER tr_delete_bill
+ON Bill
+AFTER DELETE
+AS
+BEGIN
+	Create TABLE #temp_deleted_bill (
+	  id INT,
+	  table_id INT,
+	  statusbill int,
+	);
+	INSERT INTO #temp_deleted_bill (id, table_id, statusbill)
+	SELECT billID, TableID, statusBill
+	FROM deleted;
+
+	
+	DECLARE @TableId int
+	select @TableId = table_id from #temp_deleted_bill 
+
+	DECLARE @count int = 0
+	select @count = COUNT(*) from dbo.Bill where TableID = @TableId and statusBill = 0
+
+	if(@count = 0 )
+		update dbo.TableFood set statusTable = N'Trống' where TableID = @TableId
+END;
+
+
+
+-- create procedure Switch Table
+GO
+alter proc	PR_SwitchTable
+@IdTableOld int,
+@IdTableNew int,
+@IdBillOld int,
+@IdBillNew int
+as
+begin 
+	Update dbo.TableFood set statusTable = N'Trống' where TableID = @IdTableOld
+	UPDATE BillInfo
+	SET [count] = [count] + COALESCE(
+	  (SELECT [count] FROM BillInfo
+	   WHERE billId = @IdBillOld AND foodID = BillInfo.foodID),
+	  0
+	)
+	WHERE billId = @IdBillNew
+
+
+	update Billinfo set billID = @IdBillNew where billID = @IdBillOld and foodID not in (select foodID from Billinfo where billID = @IdBillNew)
+	Delete Billinfo where  billID = @IdBillOld
+	Delete Bill where billID = @IdBillOld
+end
 
 
 select * from Bill
 select * from Billinfo
 select * from TableFood
+select * from Food
 
 delete dbo.Bill
 delete dbo.Billinfo
 delete dbo.TableFood
+
+DBCC CHECKIDENT ('Bill', RESEED, 0);
+DBCC CHECKIDENT ('Billinfo', RESEED, 0);
+DBCC CHECKIDENT ('TableFood', RESEED, 0);
+
+
+	
