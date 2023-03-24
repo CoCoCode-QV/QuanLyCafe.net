@@ -50,6 +50,10 @@ CREATE TABLE Bill(
 	 Foreign Key (TableID) references dbo.TableFood(TableID)
 )go
 
+--ALTER Bill
+Alter table Bill
+Add Discount Int Default 0
+
 CREATE TABLE Billinfo(
 	 billInfoID int IDENTITY PRIMARY KEY,
 	 billID int NOT NULL,
@@ -151,10 +155,11 @@ alter proc PR_InsertBill
 @TableId int
 as
 begin
-	insert dbo.Bill(dateCheckin,dateCheckOut,TableID,statusBill)
+	insert dbo.Bill(dateCheckin,dateCheckOut,TableID,statusBill, Discount)
 	values(GETDATE(),
 			 null,
 			 @TableId,
+			 0,
 			 0
 	)
 
@@ -269,11 +274,16 @@ begin
 	Update dbo.TableFood set statusTable = N'Trống' where TableID = @IdTableOld
 	UPDATE BillInfo
 	SET [count] = [count] + COALESCE(
-	  (SELECT [count] FROM BillInfo
-	   WHERE billId = @IdBillOld AND foodID = BillInfo.foodID),
+	  (SELECT SUM([count]) FROM (
+		  SELECT foodID, SUM([count]) as [count]
+		  FROM BillInfo
+		  WHERE billId = @IdBillOld
+		  GROUP BY foodID
+		) AS t
+		WHERE t.foodID = BillInfo.foodID
+	  ),
 	  0
-	)
-	WHERE billId = @IdBillNew
+	 )WHERE billId = @IdBillNew
 
 
 	update Billinfo set billID = @IdBillNew where billID = @IdBillOld and foodID not in (select foodID from Billinfo where billID = @IdBillNew)

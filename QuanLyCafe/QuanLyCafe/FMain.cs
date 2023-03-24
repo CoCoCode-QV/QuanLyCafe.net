@@ -163,11 +163,13 @@ namespace QuanLyCafe
             if (table == null)
                 return;
             int idBill = BillDAO.Ins.getUnchecBillIdbyTableID(table.Id);
-            if(idBill != -1)
+            int discount =(int)nmDisCount.Value;
+            if (idBill != -1)
             {
                 if(MessageBox.Show("Bạn có muốn thanh toán hóa đơn " + table.Name, "Thông báo", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
                 {
-                    BillDAO.Ins.CheckOut(idBill);
+                 
+                    BillDAO.Ins.CheckOut(idBill,discount);
                     showBill(table.Id);
                     LoadTable();
                 }
@@ -181,8 +183,7 @@ namespace QuanLyCafe
             Table tableOld = listViewBill.Tag as Table;
             Table tableNew = cbSwitchTable.SelectedItem as Table;
             int idBillNew = BillDAO.Ins.getUnchecBillIdbyTableID(tableNew.Id);
-            int idBillOld = BillDAO.Ins.getUnchecBillIdbyTableID(tableOld.Id);
-
+            int idBillOld = BillDAO.Ins.getUnchecBillIdbyTableID(tableOld.Id); 
             if (tableOld == null || tableNew == null || tableOld.Id == tableNew.Id)
                 return;
 
@@ -191,6 +192,7 @@ namespace QuanLyCafe
                 BillDAO.Ins.insertBill(tableNew.Id);
                 idBillNew = BillDAO.Ins.getUnchecBillIdbyTableID(tableNew.Id);
             }
+
             TableDAO.Ins.SwitchTablebyIDBill(tableOld.Id, tableNew.Id, idBillOld, idBillNew);
             LoadTable();
             //lỗi

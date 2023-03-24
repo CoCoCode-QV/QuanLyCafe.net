@@ -44,9 +44,9 @@ namespace QuanLyCafe.DAO
              return (int)   DataProvider.Instance.ExecuteScalar("select max(billID) from dbo.Bill");
         }
 
-        public void CheckOut(int id)
+        public void CheckOut(int id, int discount)
         {
-            string query = "Update dbo.Bill set statusBill = 1 , dateCheckOut = GETDATE() where billID = " + id;
+            string query = "Update dbo.Bill set statusBill = 1 , dateCheckOut = GETDATE() , Discount = " + discount + " where billID = " + id;
             DataProvider.Instance.ExecuteNonQuery(query);
         }
 

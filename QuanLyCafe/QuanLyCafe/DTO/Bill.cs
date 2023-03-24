@@ -14,19 +14,22 @@ namespace QuanLyCafe.DTO
         private DateTime? _dateCheckIn;
         private int _tableId;
         private int _status;
+        private int _discount;
 
         public int BillId { get => _billId; set => _billId = value; }
         public DateTime? DateCheckOut { get => _dateCheckOut; set => _dateCheckOut = value; }
         public DateTime? DateCheckIn { get => _dateCheckIn; set => _dateCheckIn= value; }
         public int TableId { get => _tableId; set => _tableId = value; }
         public int Status { get => _status; set => _status = value; }
-        
-        public Bill(int id, DateTime? dateCheckOut, DateTime? dateCheckin,int status)
+        public int Discount { get => _discount; set => _discount = value; }
+
+        public Bill(int id, DateTime? dateCheckOut, DateTime? dateCheckin,int status, int discount = 0)
         {
             this.BillId = id;
             this.DateCheckOut = dateCheckOut;
             this.DateCheckIn = dateCheckin;
             this.Status = status;
+            this.Discount = discount;
         }
         
         public Bill (DataRow row)
@@ -38,6 +41,7 @@ namespace QuanLyCafe.DTO
                 this.DateCheckOut = (DateTime?)temp;
 
             this.Status = (int)row["statusBill"];
+            this.Discount = row["Discount"] != DBNull.Value ? (int)row["Discount"] : 0;
         }
     }
 }
