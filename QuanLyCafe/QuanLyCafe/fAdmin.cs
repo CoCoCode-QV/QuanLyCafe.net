@@ -1,4 +1,5 @@
 ﻿using QuanLyCafe.DAO;
+using QuanLyCafe.DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,13 +18,28 @@ namespace QuanLyCafe
         public fAdmin()
         {
             InitializeComponent();
+            load();
+        }
+
+        #region methods
+        public void load()
+        {
+            loadListFood();
+        }
+
+        public void loadListFood()
+        {
+            List<Food> listFood = FoodDAO.Ins.GetListFood();
+            foreach(Food item in listFood)
+            {
+                dtGridViewFood.Rows.Add(item.Id, item.Name, item.Price, item.CategoryId);
+            }
           
         }
-        void LoadAccountList()
-        {
-            string query = "Select * from dbo.Account";
+        #endregion
 
-            dataGridViewAccount.DataSource = DataProvider.Instance.ExecuteQuery(query);
+        private void dtGridViewFood_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
     }

@@ -1,4 +1,5 @@
 ﻿using QuanLyCafe.DAO;
+using QuanLyCafe.DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,7 +30,9 @@ namespace QuanLyCafe
             string passWord = txtbPassWord.Text;
             if (isLogin(username,passWord))
             {
-                fMain f = new fMain();
+                Account AccountLogin = AccountDAO.Ins.GetAccountByUserName(username);
+
+                fMain f = new fMain(AccountLogin);
                 this.Hide();
                 f.ShowDialog();
                 this.Show();

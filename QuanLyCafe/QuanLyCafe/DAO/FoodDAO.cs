@@ -35,5 +35,18 @@ namespace QuanLyCafe.DAO
             }
             return List;
         }
+        public List<Food> GetListFood()
+        {
+            List<Food> List = new List<Food>();
+            string query = "select * from Food";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query);
+
+            foreach (DataRow item in data.Rows)
+            {
+                Food f = new Food(item);
+                List.Add(f);
+            }
+            return List;
+        }
     }
 }

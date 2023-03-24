@@ -183,7 +183,7 @@ begin
 		begin 
 			Declare @newcount int = @foodCount + @count
 			if(@newcount > 0)
-				update dbo.Billinfo set count = @foodCount + @count where foodID = @idFood
+				update dbo.Billinfo set count = @foodCount + @count where foodID = @idFood and billID = @idBill
 			else
 				begin
 					Delete dbo.Billinfo where billID = @idBill and foodID = @idFood
@@ -262,7 +262,7 @@ END;
 
 
 
--- create procedure Switch Table
+---- create procedure Switch Table
 GO
 alter proc	PR_SwitchTable
 @IdTableOld int,
@@ -272,18 +272,20 @@ alter proc	PR_SwitchTable
 as
 begin 
 	Update dbo.TableFood set statusTable = N'Trống' where TableID = @IdTableOld
-	UPDATE BillInfo
+
+	UPDATE Billinfo
 	SET [count] = [count] + COALESCE(
 	  (SELECT SUM([count]) FROM (
 		  SELECT foodID, SUM([count]) as [count]
-		  FROM BillInfo
-		  WHERE billId = @IdBillOld
+		  FROM Billinfo
+		  WHERE billID = @IdBillOld
 		  GROUP BY foodID
 		) AS t
-		WHERE t.foodID = BillInfo.foodID
+		WHERE t.foodID = Billinfo.foodID
 	  ),
 	  0
-	 )WHERE billId = @IdBillNew
+	 )
+	WHERE billID = @IdBillNew AND foodID IN (SELECT foodID FROM Billinfo WHERE billID = @IdBillOld)
 
 
 	update Billinfo set billID = @IdBillNew where billID = @IdBillOld and foodID not in (select foodID from Billinfo where billID = @IdBillNew)
@@ -296,6 +298,8 @@ select * from Bill
 select * from Billinfo
 select * from TableFood
 select * from Food
+select * from Account
+select * from FoodCategory
 
 delete dbo.Bill
 delete dbo.Billinfo
@@ -305,5 +309,5 @@ DBCC CHECKIDENT ('Bill', RESEED, 0);
 DBCC CHECKIDENT ('Billinfo', RESEED, 0);
 DBCC CHECKIDENT ('TableFood', RESEED, 0);
 
-
+	
 	

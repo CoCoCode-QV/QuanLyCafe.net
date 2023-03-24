@@ -1,13 +1,15 @@
-﻿using System;
+﻿using QuanLyCafe.DTO;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace QuanLyCafe.DAO
 {
-    public class AccountDAO
+     class AccountDAO
     {
 
         #region Singleton
@@ -27,6 +29,16 @@ namespace QuanLyCafe.DAO
             string query = "EXEC PR_Login @username , @password";
             DataTable result = DataProvider.Instance.ExecuteQuery(query, new object[] { username, password });
             return result.Rows.Count >0;
+        }
+        
+        public Account GetAccountByUserName(string userName)
+        {
+            DataTable table = DataProvider.Instance.ExecuteQuery("Select * from Account where userName = @userName", new object[] { userName });
+            foreach(DataRow item in table.Rows)
+            {
+                return new Account(item);
+            }
+            return null;
         }
     }
 }

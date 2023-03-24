@@ -14,17 +14,30 @@ using Menu = QuanLyCafe.DTO.Menu;
 
 namespace QuanLyCafe
 {
-    public partial class fMain : Form
+     partial class fMain : Form
     {
-        public fMain()
+        public fMain(Account account)
         {
             InitializeComponent();
+            changeAccount(account);
+            Load();
+        }
+
+        #region Method
+
+        private void Load()
+        {
             LoadTable();
             loadCategory();
             loadComboBoxSwitchTable(cbSwitchTable);
         }
 
-        #region Method
+        private void changeAccount(Account account)
+        {
+            adminToolMnStrip.Enabled = account.Type == 1 ? true : false;
+            thôngTinTàiKhoảnToolStripMenuItem.Text += " - " + account.DisplayName;
+        }
+
         private void LoadTable()
         {
             flPanelTable.Controls.Clear();
@@ -91,6 +104,7 @@ namespace QuanLyCafe
             cbFood.DataSource = listFood;
             cbFood.DisplayMember = "name";
         }
+
         #endregion
 
         #region events
@@ -168,7 +182,6 @@ namespace QuanLyCafe
             {
                 if(MessageBox.Show("Bạn có muốn thanh toán hóa đơn " + table.Name, "Thông báo", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
                 {
-                 
                     BillDAO.Ins.CheckOut(idBill,discount);
                     showBill(table.Id);
                     LoadTable();
@@ -192,16 +205,12 @@ namespace QuanLyCafe
                 BillDAO.Ins.insertBill(tableNew.Id);
                 idBillNew = BillDAO.Ins.getUnchecBillIdbyTableID(tableNew.Id);
             }
-
+          
             TableDAO.Ins.SwitchTablebyIDBill(tableOld.Id, tableNew.Id, idBillOld, idBillNew);
             LoadTable();
             //lỗi
         }
 
-
-
-
-        #endregion
 
         private void nmDisCount_ValueChanged(object sender, EventArgs e)
         {
@@ -217,5 +226,6 @@ namespace QuanLyCafe
             string strPrice = string.Format(new CultureInfo("vi-VN"), "{0:#,##0} VNĐ", TotalReduce);
             txtTotalPrice.Text = strPrice;
         }
+        #endregion
     }
 }
