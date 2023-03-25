@@ -294,6 +294,38 @@ begin
 end
 
 
+
+-- procedure insert Food
+go
+create proc PR_InsertFood
+@name nvarchar(100),
+@category int,
+@price float
+as
+begin
+	insert dbo.Food(name,CategoryID,price)
+	values(
+		@name,
+		@category,
+		@price
+	)
+end	
+
+exec PR_InsertFood @name , @category , @price
+
+-- procedure deleteFood
+GO
+alter proc PR_DeleteFood
+@FOODID INT
+as
+begin
+
+	Delete Food where FoodID = @FOODID and FoodID not in(Select FoodID from Billinfo)
+	
+end
+
+exec PR_DeleteFood 
+
 select * from Bill
 select * from Billinfo
 select * from TableFood

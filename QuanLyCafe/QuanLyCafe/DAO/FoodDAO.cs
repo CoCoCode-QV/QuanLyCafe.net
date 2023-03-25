@@ -35,6 +35,7 @@ namespace QuanLyCafe.DAO
             }
             return List;
         }
+
         public List<Food> GetListFood()
         {
             List<Food> List = new List<Food>();
@@ -47,6 +48,16 @@ namespace QuanLyCafe.DAO
                 List.Add(f);
             }
             return List;
+        }
+
+        public void InsertFood(string name , int category, float price)
+        {
+            DataProvider.Instance.ExecuteQuery("exec PR_InsertFood @name , @category , @price", new object[] { name, category, price });
+        }
+
+        public void DeleteFood(int id)
+        {
+            DataProvider.Instance.ExecuteQuery("exec PR_DeleteFood @FOODID", new object[] { id });
         }
     }
 }

@@ -71,7 +71,7 @@ namespace QuanLyCafe
             this.nmPrice = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.panel11 = new System.Windows.Forms.Panel();
-            this.txtCategoryFood = new System.Windows.Forms.ComboBox();
+            this.cbboxCategoryFood = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
             this.txtNameFood = new System.Windows.Forms.TextBox();
@@ -86,6 +86,10 @@ namespace QuanLyCafe
             this.btnAddFood = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
             this.dtGridViewFood = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabBill = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
             this.dataGridStatis = new System.Windows.Forms.DataGridView();
@@ -115,10 +119,6 @@ namespace QuanLyCafe
             this.btnAddUser = new System.Windows.Forms.Button();
             this.panel29 = new System.Windows.Forms.Panel();
             this.dataGridViewAccount = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabTable.SuspendLayout();
             this.panel14.SuspendLayout();
             this.panel16.SuspendLayout();
@@ -596,20 +596,20 @@ namespace QuanLyCafe
             // 
             // panel11
             // 
-            this.panel11.Controls.Add(this.txtCategoryFood);
+            this.panel11.Controls.Add(this.cbboxCategoryFood);
             this.panel11.Controls.Add(this.label3);
             this.panel11.Location = new System.Drawing.Point(3, 157);
             this.panel11.Name = "panel11";
             this.panel11.Size = new System.Drawing.Size(395, 60);
             this.panel11.TabIndex = 8;
             // 
-            // txtCategoryFood
+            // cbboxCategoryFood
             // 
-            this.txtCategoryFood.FormattingEnabled = true;
-            this.txtCategoryFood.Location = new System.Drawing.Point(117, 18);
-            this.txtCategoryFood.Name = "txtCategoryFood";
-            this.txtCategoryFood.Size = new System.Drawing.Size(265, 31);
-            this.txtCategoryFood.TabIndex = 1;
+            this.cbboxCategoryFood.FormattingEnabled = true;
+            this.cbboxCategoryFood.Location = new System.Drawing.Point(117, 18);
+            this.cbboxCategoryFood.Name = "cbboxCategoryFood";
+            this.cbboxCategoryFood.Size = new System.Drawing.Size(265, 31);
+            this.cbboxCategoryFood.TabIndex = 1;
             // 
             // label3
             // 
@@ -726,6 +726,7 @@ namespace QuanLyCafe
             this.btnRemoveFood.TabIndex = 2;
             this.btnRemoveFood.Text = "Xóa";
             this.btnRemoveFood.UseVisualStyleBackColor = false;
+            this.btnRemoveFood.Click += new System.EventHandler(this.btnRemoveFood_Click);
             // 
             // btnAddFood
             // 
@@ -740,6 +741,7 @@ namespace QuanLyCafe
             this.btnAddFood.TabIndex = 1;
             this.btnAddFood.Text = "Thêm";
             this.btnAddFood.UseVisualStyleBackColor = false;
+            this.btnAddFood.Click += new System.EventHandler(this.btnAddFood_Click);
             // 
             // panel5
             // 
@@ -764,7 +766,34 @@ namespace QuanLyCafe
             this.dtGridViewFood.RowTemplate.Height = 24;
             this.dtGridViewFood.Size = new System.Drawing.Size(848, 514);
             this.dtGridViewFood.TabIndex = 0;
-            this.dtGridViewFood.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGridViewFood_CellContentClick);
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.MinimumWidth = 6;
+            this.ID.Name = "ID";
+            this.ID.Width = 83;
+            // 
+            // name
+            // 
+            this.name.HeaderText = "Tên món ăn";
+            this.name.MinimumWidth = 6;
+            this.name.Name = "name";
+            this.name.Width = 200;
+            // 
+            // Price
+            // 
+            this.Price.HeaderText = "Giá";
+            this.Price.MinimumWidth = 6;
+            this.Price.Name = "Price";
+            this.Price.Width = 150;
+            // 
+            // Category
+            // 
+            this.Category.HeaderText = "Loại sản phẩm";
+            this.Category.MinimumWidth = 6;
+            this.Category.Name = "Category";
+            this.Category.Width = 150;
             // 
             // tabBill
             // 
@@ -1077,34 +1106,6 @@ namespace QuanLyCafe
             this.dataGridViewAccount.Size = new System.Drawing.Size(825, 589);
             this.dataGridViewAccount.TabIndex = 0;
             // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.MinimumWidth = 6;
-            this.ID.Name = "ID";
-            this.ID.Width = 83;
-            // 
-            // name
-            // 
-            this.name.HeaderText = "Tên món ăn";
-            this.name.MinimumWidth = 6;
-            this.name.Name = "name";
-            this.name.Width = 200;
-            // 
-            // Price
-            // 
-            this.Price.HeaderText = "Giá";
-            this.Price.MinimumWidth = 6;
-            this.Price.Name = "Price";
-            this.Price.Width = 150;
-            // 
-            // Category
-            // 
-            this.Category.HeaderText = "Loại sản phẩm";
-            this.Category.MinimumWidth = 6;
-            this.Category.Name = "Category";
-            this.Category.Width = 150;
-            // 
             // fAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1183,7 +1184,7 @@ namespace QuanLyCafe
         private System.Windows.Forms.NumericUpDown nmPrice;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel11;
-        private System.Windows.Forms.ComboBox txtCategoryFood;
+        private System.Windows.Forms.ComboBox cbboxCategoryFood;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.TextBox txtNameFood;
