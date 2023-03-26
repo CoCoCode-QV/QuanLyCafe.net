@@ -39,7 +39,10 @@ CREATE TABLE Food(
 	 Foreign Key (CategoryID) references dbo.FoodCategory(FoodCategoryID)
 
 )go
-
+--alter food
+Alter table Food
+Add sellStop Int Default 0
+UPDATE Food SET sellStop = 0
 
 CREATE TABLE Bill(
 	 billID int IDENTITY PRIMARY KEY,
@@ -297,17 +300,19 @@ end
 
 -- procedure insert Food
 go
-create proc PR_InsertFood
+alter proc PR_InsertFood
 @name nvarchar(100),
 @category int,
-@price float
+@price float,
+@sellStop int
 as
 begin
-	insert dbo.Food(name,CategoryID,price)
+	insert dbo.Food(name,CategoryID,price,sellStop)
 	values(
 		@name,
 		@category,
-		@price
+		@price,
+		@sellStop
 	)
 end	
 
@@ -324,13 +329,50 @@ begin
 	
 end
 
-exec PR_DeleteFood 
+--Trigger delete Billinfo
+
+go 
+create TRIGGER TR_DeleteBillinfo
+on dbo.Billinfo for delete
+as
+begin
+	Declare @idBIllInfo int
+	Declare @idBill int
+	Declare @idTable int
+	Declare @count int = 0
+	select @idBIllInfo =  billInfoID, @idBill = billID From deleted
+
+	select @idTable = TableID from Bill where billID = @idBill
+	
+	select @count = COUNT(*) from dbo.Billinfo as bi ,dbo.Bill as b where bi.billID = @idBill and b.billID = bi.billID and b.statusBill = 0
+
+	if(@count = 0 )
+		update dbo.TableFood set statusTable = N'Trống' where TableID = @idTable
+	
+end
+
+--procedure deleteCategory when Food null
+go 
+alter proc PR_DELETECategory 
+@id int
+as
+begin
+	declare @count int = -1
+	select @count = COUNT(*)
+	from Food where CategoryID = @id
+
+	if( @count = 0)
+		delete FoodCategory where FoodCategoryID = @id
+	
+end
+
+
 
 select * from Bill
 select * from Billinfo
 select * from TableFood
-select * from Food
 select * from Account
+select * from Food
 select * from FoodCategory
 
 delete dbo.Bill
@@ -340,6 +382,6 @@ delete dbo.TableFood
 DBCC CHECKIDENT ('Bill', RESEED, 0);
 DBCC CHECKIDENT ('Billinfo', RESEED, 0);
 DBCC CHECKIDENT ('TableFood', RESEED, 0);
-
+DBCC CHECKIDENT ('Food', RESEED, 0);
 	
 	

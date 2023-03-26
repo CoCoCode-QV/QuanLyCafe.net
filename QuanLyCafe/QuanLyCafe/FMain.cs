@@ -95,7 +95,7 @@ namespace QuanLyCafe
         {
             List<Category> listCategory = CategoryDAO.Ins.GetListCategory();
             cbCategory.DataSource = listCategory;
-            cbCategory.DisplayMember = "Name";
+            cbCategory.DisplayMember = "NameCategory";
         }
 
         private void LoadFoodListByCategoryID(int id)

@@ -42,5 +42,7 @@ namespace QuanLyCafe.DAO
         {
             DataProvider.Instance.ExecuteNonQuery("exec PR_InsertBillInfo @idBill , @idFood , @count ", new object[] { idBill , idFood , Count });
         }
+
+     
     }
 }

@@ -61,10 +61,12 @@ namespace QuanLyCafe
             this.btnRemoveCategory = new System.Windows.Forms.Button();
             this.btnAddCategory = new System.Windows.Forms.Button();
             this.panel28 = new System.Windows.Forms.Panel();
-            this.dgvCategory = new System.Windows.Forms.DataGridView();
+            this.dtgridViewCategory = new System.Windows.Forms.DataGridView();
+            this.IDcategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NameCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabFood = new System.Windows.Forms.TabPage();
             this.panel8 = new System.Windows.Forms.Panel();
-            this.btnSearch = new System.Windows.Forms.Button();
+            this.btnSearchFood = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel12 = new System.Windows.Forms.Panel();
@@ -86,10 +88,6 @@ namespace QuanLyCafe
             this.btnAddFood = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
             this.dtGridViewFood = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabBill = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
             this.dataGridStatis = new System.Windows.Forms.DataGridView();
@@ -119,6 +117,14 @@ namespace QuanLyCafe
             this.btnAddUser = new System.Windows.Forms.Button();
             this.panel29 = new System.Windows.Forms.Panel();
             this.dataGridViewAccount = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sellStop = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBoxSellStop = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.tabTable.SuspendLayout();
             this.panel14.SuspendLayout();
             this.panel16.SuspendLayout();
@@ -133,7 +139,7 @@ namespace QuanLyCafe
             this.panel26.SuspendLayout();
             this.panel27.SuspendLayout();
             this.panel28.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCategory)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgridViewCategory)).BeginInit();
             this.tabFood.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -158,6 +164,7 @@ namespace QuanLyCafe
             this.panel24.SuspendLayout();
             this.panel29.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAccount)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabTable
@@ -461,6 +468,7 @@ namespace QuanLyCafe
             this.btnEditCategory.TabIndex = 3;
             this.btnEditCategory.Text = "Sửa";
             this.btnEditCategory.UseVisualStyleBackColor = false;
+            this.btnEditCategory.Click += new System.EventHandler(this.btnEditCategory_Click);
             // 
             // btnRemoveCategory
             // 
@@ -475,6 +483,7 @@ namespace QuanLyCafe
             this.btnRemoveCategory.TabIndex = 2;
             this.btnRemoveCategory.Text = "Xóa";
             this.btnRemoveCategory.UseVisualStyleBackColor = false;
+            this.btnRemoveCategory.Click += new System.EventHandler(this.btnRemoveCategory_Click);
             // 
             // btnAddCategory
             // 
@@ -489,24 +498,43 @@ namespace QuanLyCafe
             this.btnAddCategory.TabIndex = 1;
             this.btnAddCategory.Text = "Thêm";
             this.btnAddCategory.UseVisualStyleBackColor = false;
+            this.btnAddCategory.Click += new System.EventHandler(this.btnAddCategory_Click);
             // 
             // panel28
             // 
-            this.panel28.Controls.Add(this.dgvCategory);
+            this.panel28.Controls.Add(this.dtgridViewCategory);
             this.panel28.Location = new System.Drawing.Point(6, 6);
             this.panel28.Name = "panel28";
             this.panel28.Size = new System.Drawing.Size(833, 597);
             this.panel28.TabIndex = 3;
             // 
-            // dgvCategory
+            // dtgridViewCategory
             // 
-            this.dgvCategory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCategory.Location = new System.Drawing.Point(6, 3);
-            this.dgvCategory.Name = "dgvCategory";
-            this.dgvCategory.RowHeadersWidth = 51;
-            this.dgvCategory.RowTemplate.Height = 24;
-            this.dgvCategory.Size = new System.Drawing.Size(828, 591);
-            this.dgvCategory.TabIndex = 0;
+            this.dtgridViewCategory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgridViewCategory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IDcategory,
+            this.NameCategory});
+            this.dtgridViewCategory.Location = new System.Drawing.Point(6, 3);
+            this.dtgridViewCategory.Name = "dtgridViewCategory";
+            this.dtgridViewCategory.RowHeadersWidth = 51;
+            this.dtgridViewCategory.RowTemplate.Height = 24;
+            this.dtgridViewCategory.Size = new System.Drawing.Size(828, 591);
+            this.dtgridViewCategory.TabIndex = 0;
+            this.dtgridViewCategory.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgridViewCategory_CellClick);
+            // 
+            // IDcategory
+            // 
+            this.IDcategory.HeaderText = "Mã Danh mục";
+            this.IDcategory.MinimumWidth = 6;
+            this.IDcategory.Name = "IDcategory";
+            this.IDcategory.Width = 125;
+            // 
+            // NameCategory
+            // 
+            this.NameCategory.HeaderText = "Tên danh mục";
+            this.NameCategory.MinimumWidth = 6;
+            this.NameCategory.Name = "NameCategory";
+            this.NameCategory.Width = 450;
             // 
             // tabFood
             // 
@@ -524,26 +552,27 @@ namespace QuanLyCafe
             // 
             // panel8
             // 
-            this.panel8.Controls.Add(this.btnSearch);
+            this.panel8.Controls.Add(this.btnSearchFood);
             this.panel8.Controls.Add(this.txtSearch);
             this.panel8.Location = new System.Drawing.Point(863, 9);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(401, 74);
             this.panel8.TabIndex = 2;
             // 
-            // btnSearch
+            // btnSearchFood
             // 
-            this.btnSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btnSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSearch.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.ForeColor = System.Drawing.Color.White;
-            this.btnSearch.Location = new System.Drawing.Point(302, 0);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(99, 74);
-            this.btnSearch.TabIndex = 5;
-            this.btnSearch.Text = "Tìm";
-            this.btnSearch.UseVisualStyleBackColor = false;
+            this.btnSearchFood.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnSearchFood.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnSearchFood.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSearchFood.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearchFood.ForeColor = System.Drawing.Color.White;
+            this.btnSearchFood.Location = new System.Drawing.Point(302, 0);
+            this.btnSearchFood.Name = "btnSearchFood";
+            this.btnSearchFood.Size = new System.Drawing.Size(99, 74);
+            this.btnSearchFood.TabIndex = 5;
+            this.btnSearchFood.Text = "Tìm";
+            this.btnSearchFood.UseVisualStyleBackColor = false;
+            this.btnSearchFood.Click += new System.EventHandler(this.btnSearchFood_Click);
             // 
             // txtSearch
             // 
@@ -554,6 +583,7 @@ namespace QuanLyCafe
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.panel1);
             this.panel7.Controls.Add(this.panel12);
             this.panel7.Controls.Add(this.panel11);
             this.panel7.Controls.Add(this.panel10);
@@ -615,7 +645,7 @@ namespace QuanLyCafe
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(8, 16);
+            this.label3.Location = new System.Drawing.Point(8, 21);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(96, 23);
             this.label3.TabIndex = 0;
@@ -712,6 +742,7 @@ namespace QuanLyCafe
             this.btnEditFood.TabIndex = 3;
             this.btnEditFood.Text = "Sửa";
             this.btnEditFood.UseVisualStyleBackColor = false;
+            this.btnEditFood.Click += new System.EventHandler(this.btnEditFood_Click);
             // 
             // btnRemoveFood
             // 
@@ -759,41 +790,15 @@ namespace QuanLyCafe
             this.ID,
             this.name,
             this.Price,
-            this.Category});
+            this.Category,
+            this.sellStop});
             this.dtGridViewFood.Location = new System.Drawing.Point(3, 3);
             this.dtGridViewFood.Name = "dtGridViewFood";
             this.dtGridViewFood.RowHeadersWidth = 51;
             this.dtGridViewFood.RowTemplate.Height = 24;
             this.dtGridViewFood.Size = new System.Drawing.Size(848, 514);
             this.dtGridViewFood.TabIndex = 0;
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.MinimumWidth = 6;
-            this.ID.Name = "ID";
-            this.ID.Width = 83;
-            // 
-            // name
-            // 
-            this.name.HeaderText = "Tên món ăn";
-            this.name.MinimumWidth = 6;
-            this.name.Name = "name";
-            this.name.Width = 200;
-            // 
-            // Price
-            // 
-            this.Price.HeaderText = "Giá";
-            this.Price.MinimumWidth = 6;
-            this.Price.Name = "Price";
-            this.Price.Width = 150;
-            // 
-            // Category
-            // 
-            this.Category.HeaderText = "Loại sản phẩm";
-            this.Category.MinimumWidth = 6;
-            this.Category.Name = "Category";
-            this.Category.Width = 150;
+            this.dtGridViewFood.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGridViewFood_CellClick);
             // 
             // tabBill
             // 
@@ -1106,6 +1111,70 @@ namespace QuanLyCafe
             this.dataGridViewAccount.Size = new System.Drawing.Size(825, 589);
             this.dataGridViewAccount.TabIndex = 0;
             // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.MinimumWidth = 6;
+            this.ID.Name = "ID";
+            this.ID.Width = 83;
+            // 
+            // name
+            // 
+            this.name.HeaderText = "Tên món ăn";
+            this.name.MinimumWidth = 6;
+            this.name.Name = "name";
+            this.name.Width = 150;
+            // 
+            // Price
+            // 
+            this.Price.HeaderText = "Giá";
+            this.Price.MinimumWidth = 6;
+            this.Price.Name = "Price";
+            this.Price.Width = 120;
+            // 
+            // Category
+            // 
+            this.Category.HeaderText = "Loại sản phẩm";
+            this.Category.MinimumWidth = 6;
+            this.Category.Name = "Category";
+            this.Category.Width = 130;
+            // 
+            // sellStop
+            // 
+            this.sellStop.HeaderText = "Trạng thái";
+            this.sellStop.MinimumWidth = 6;
+            this.sellStop.Name = "sellStop";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.comboBoxSellStop);
+            this.panel1.Controls.Add(this.label15);
+            this.panel1.Location = new System.Drawing.Point(3, 289);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(395, 60);
+            this.panel1.TabIndex = 9;
+            // 
+            // comboBoxSellStop
+            // 
+            this.comboBoxSellStop.FormattingEnabled = true;
+            this.comboBoxSellStop.Items.AddRange(new object[] {
+            "Còn bán",
+            "Ngừng bán"});
+            this.comboBoxSellStop.Location = new System.Drawing.Point(117, 18);
+            this.comboBoxSellStop.Name = "comboBoxSellStop";
+            this.comboBoxSellStop.Size = new System.Drawing.Size(265, 31);
+            this.comboBoxSellStop.TabIndex = 1;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(11, 21);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(97, 23);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "Trạng thái:";
+            // 
             // fAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1134,7 +1203,7 @@ namespace QuanLyCafe
             this.panel26.PerformLayout();
             this.panel27.ResumeLayout(false);
             this.panel28.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCategory)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgridViewCategory)).EndInit();
             this.tabFood.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
@@ -1168,6 +1237,8 @@ namespace QuanLyCafe
             this.panel24.ResumeLayout(false);
             this.panel29.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAccount)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1177,7 +1248,7 @@ namespace QuanLyCafe
         private System.Windows.Forms.TabPage tabFoodCategory;
         private System.Windows.Forms.TabPage tabFood;
         private System.Windows.Forms.Panel panel8;
-        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnSearchFood;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel12;
@@ -1239,7 +1310,7 @@ namespace QuanLyCafe
         private System.Windows.Forms.Button btnRemoveCategory;
         private System.Windows.Forms.Button btnAddCategory;
         private System.Windows.Forms.Panel panel28;
-        private System.Windows.Forms.DataGridView dgvCategory;
+        private System.Windows.Forms.DataGridView dtgridViewCategory;
         private System.Windows.Forms.TabPage tabAccount;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnChangePass;
@@ -1259,9 +1330,15 @@ namespace QuanLyCafe
         private System.Windows.Forms.Button btnAddUser;
         private System.Windows.Forms.Panel panel29;
         private System.Windows.Forms.DataGridView dataGridViewAccount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDcategory;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NameCategory;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.DataGridViewTextBoxColumn Category;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sellStop;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ComboBox comboBoxSellStop;
+        private System.Windows.Forms.Label label15;
     }
 }
