@@ -50,6 +50,18 @@ namespace QuanLyCafe.DAO
             DataProvider.Instance.ExecuteNonQuery(query);
         }
 
+        public List<Bill> LoadBIll(DateTime fromdate, DateTime todate)
+        {
+            List<Bill> listBill = new List<Bill>();
+            DataTable data =  DataProvider.Instance.ExecuteQuery("SELECT * FROM Bill WHERE dateCheckOut >= @fromdate and  dateCheckOut <= @todate  and statusBill = 1", new object[] { fromdate, todate});
+           foreach(DataRow item in data.Rows)
+            {
+                Bill bill = new Bill(item);
+                listBill.Add(bill);
+            }
+
+            return listBill;
+        }
         
     }
 }

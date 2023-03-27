@@ -24,9 +24,13 @@ namespace QuanLyCafe
         #region methods
         private void load()
         {
+
+            LoadStatis();
             loadListFood();
             loadCategoryByListFood();
             LoadListCategory();
+            loadTable();
+            LoadAccount();
         }
 
         private void loadListFood()
@@ -62,6 +66,18 @@ namespace QuanLyCafe
 
         }
 
+        private void LoadStatis()
+        {
+            dataGridStatis.Rows.Clear();
+            DateTime dateFrom = dtpkFromDate.Value;
+            DateTime dateTo = dtpkToDate.Value;
+            List<Bill> listCategory = BillDAO.Ins.LoadBIll(dateFrom, dateTo);
+            foreach (Bill item in listCategory)
+            {
+                Table table = TableDAO.Ins.getTableByIDTable(item.TableId);
+                dataGridStatis.Rows.Add(item.BillId , table.Name , item.DateCheckIn, item.DateCheckOut);
+            }
+        }
         #endregion
 
 
@@ -198,7 +214,6 @@ namespace QuanLyCafe
             }
         }
 
-
         private void btnRemoveCategory_Click(object sender, EventArgs e)
         {
             DataGridViewSelectedRowCollection selectedRows = dtgridViewCategory.SelectedRows;
@@ -219,7 +234,7 @@ namespace QuanLyCafe
                         if(CategoryDAO.Ins.DeleteCategory(id))
                         {
                             MessageBox.Show("Xóa thành công!", "Thông báo");
-
+                            LoadListCategory();
                         }
                         else
                         {
@@ -229,7 +244,7 @@ namespace QuanLyCafe
 
                     }
                 }
-                LoadListCategory();
+                
             }
         }
 
@@ -255,5 +270,224 @@ namespace QuanLyCafe
         }
         #endregion
 
+        #region event Table
+        private void loadTable()
+        {
+            dataGridViewTable.Rows.Clear();
+            List<Table> listtable = TableDAO.Ins.loadTableList();
+
+            foreach(Table item in listtable)
+            {
+                dataGridViewTable.Rows.Add(item.Id, item.Name, item.Status);
+            }
+            
+            
+        }
+
+        private void dataGridViewTable_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0) // Kiểm tra xem người dùng có click vào tiêu đề của bảng không
+            {
+                DataGridViewRow row = dataGridViewTable.Rows[e.RowIndex];
+                if (row.Cells[0].Value == null || row.Cells[1].Value == null || row.Cells[2].Value == null)
+                    return;
+                txtTableID.Text = row.Cells[0].Value.ToString();
+                txtNameTable.Text = row.Cells[1].Value.ToString();
+                txtStatusTable.Text = row.Cells[2].Value.ToString();
+
+            }
+        }
+
+        private void btnAddTable_Click(object sender, EventArgs e)
+        {
+            string name = "Bàn "+ txtNameTable.Text;
+            if (name == null)
+                return;
+            if (TableDAO.Ins.insertTable(name))
+            {
+                MessageBox.Show("Thêm bàn thành công", "Thông báo", MessageBoxButtons.OK);
+                loadTable();
+            }
+            else
+            {
+                MessageBox.Show("Thêm bàn thất bại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnRemoveTable_Click(object sender, EventArgs e)
+        {
+            DataGridViewSelectedRowCollection selectedRows = dataGridViewTable.SelectedRows;
+            if (selectedRows.Count > 0)
+            {
+                foreach (DataGridViewRow row in selectedRows)
+                {
+                    int id = -1;
+                    if (row.Cells[0].Value is int)
+                    {
+                        id = (int)row.Cells[0].Value;
+                    }
+                    if (id == -1)
+                        return;
+                    if (MessageBox.Show("Bạn có muốn xóa  " + row.Cells[1].Value, "Thông báo", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                    {
+
+                        if (TableDAO.Ins.DeleteTable(id))
+                        {
+                            MessageBox.Show("Xóa thành công!", "Thông báo");
+                            loadTable();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Bị lỗi khi xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+
+
+                    }
+                }
+            }  
+        }
+
+        private void btnEditTable_Click(object sender, EventArgs e)
+        {
+            int id = Convert.ToInt32(txtTableID.Text);
+            string name = txtNameTable.Text;
+            if (name == null)
+            {
+                MessageBox.Show("Bạn cần điền đầy đủ và chính xác! ", "Thông báo");
+                return;
+            }
+
+            if (TableDAO.Ins.UpdateTable(id, name))
+            {
+                MessageBox.Show("Cập nhật bàn thành công", "Thông báo", MessageBoxButtons.OK);
+                loadTable();
+            }
+            else
+            {
+                MessageBox.Show("Có lỗi khi cập nhật", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        #endregion
+
+        #region event Account
+        private void LoadAccount()
+        {
+            dataGridViewAccount.Rows.Clear();
+            List<Account> listAccount = AccountDAO.Ins.LoadAccount();
+
+            foreach(Account item in listAccount)
+            {
+                string password = AccountDAO.Ins.HashPassword(item.PassWord);
+                string type = item.Type == 1 ? "Quản lý" : "Nhân viên";
+                dataGridViewAccount.Rows.Add(item.AccountID, item.DisplayName, item.UserName, password, type);
+            }
+        }
+        
+        private void dataGridViewAccount_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0) // Kiểm tra xem người dùng có click vào tiêu đề của bảng không
+            {
+                DataGridViewRow row = dataGridViewAccount.Rows[e.RowIndex];
+                if (row.Cells[0].Value == null || row.Cells[1].Value == null || row.Cells[2].Value == null || row.Cells[3].Value == null|| row.Cells[4].Value == null)
+                    return;
+                txtIDAccount.Text = row.Cells[0].Value.ToString();
+                txtDisplay.Text = row.Cells[1].Value.ToString();
+                txtUser.Text = row.Cells[2].Value.ToString();
+                txtPassword.Text = row.Cells[3].Value.ToString();
+                cbTypeUser.Text = row.Cells[4].Value.ToString();
+
+            }
+        }
+
+        private void btnAddUser_Click(object sender, EventArgs e)
+        {
+            string displayname = txtDisplay.Text;
+            string userName = txtUser.Text;
+            string passwords = AccountDAO.Ins.HashPassword(txtPassword.Text);
+            int type = cbTypeUser.Text == "Quản lý" ? 1 : 0;
+
+            if (displayname == null || userName ==null || passwords == null || type == null)
+            {
+                MessageBox.Show("Cần nhập đầy đủ các trường thông tin", "Thông báo", MessageBoxButtons.OK);
+                return;
+            }    
+            if (AccountDAO.Ins.insertAccount(displayname,userName,passwords,type))
+            {
+                MessageBox.Show("Thêm tài khoản thành công", "Thông báo", MessageBoxButtons.OK);
+                LoadAccount();
+            }
+            else
+            {
+                MessageBox.Show("Thêm tài khoản thất bại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnRemoveUser_Click(object sender, EventArgs e)
+        {
+            DataGridViewSelectedRowCollection selectedRows = dataGridViewAccount.SelectedRows;
+            if (selectedRows.Count > 0)
+            {
+                foreach (DataGridViewRow row in selectedRows)
+                {
+                    int id = -1;
+                    if (row.Cells[0].Value is int)
+                    {
+                        id = (int)row.Cells[0].Value;
+                    }
+                    if (id == -1)
+                        return;
+                    if (id == 1)
+                    {
+                        MessageBox.Show("Tài khoản này không được xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }    
+                    if (MessageBox.Show("Bạn có muốn xóa  " + row.Cells[1].Value, "Thông báo", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                    {
+
+                        if (AccountDAO.Ins.DeleteAccount(id))
+                        {
+                            MessageBox.Show("Xóa thành công!", "Thông báo");
+                            LoadAccount();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Bị lỗi khi xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+
+
+                    }
+                }
+            }
+        }
+
+        private void btnEditUser_Click(object sender, EventArgs e)
+        {
+            string displayname = txtDisplay.Text;
+            string userName = txtUser.Text;
+            string passwords = AccountDAO.Ins.HashPassword(txtPassword.Text);
+            int type = cbTypeUser.Text == "Quản lý" ? 1 : 0;
+            int idAccount = Convert.ToInt32(txtIDAccount.Text);
+
+            if (displayname == null || userName == null || passwords == null || type == null || idAccount == null)
+            {
+                MessageBox.Show("Cần nhập đầy đủ các trường thông tin", "Thông báo", MessageBoxButtons.OK);
+                return;
+            }
+
+            if (AccountDAO.Ins.UpdateAccount(displayname, userName, passwords, type, idAccount))
+            {
+                MessageBox.Show("Cập nhật tài khoản thành công", "Thông báo", MessageBoxButtons.OK);
+                LoadAccount();
+            }
+            else
+            {
+                MessageBox.Show("Cập nhật tài khoản thất bại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        #endregion
+      
+      
+     
     }
 }

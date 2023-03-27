@@ -148,7 +148,6 @@ end
 go 
 create proc PR_LoadTable
 as select *from TableFood
-
 exec PR_LoadTable
 
 
@@ -368,9 +367,11 @@ end
 
 
 
+select * from TableFood where TableID = 1
+
 select * from Bill
-select * from Billinfo
 select * from TableFood
+select * from Billinfo
 select * from Account
 select * from Food
 select * from FoodCategory
@@ -383,5 +384,9 @@ DBCC CHECKIDENT ('Bill', RESEED, 0);
 DBCC CHECKIDENT ('Billinfo', RESEED, 0);
 DBCC CHECKIDENT ('TableFood', RESEED, 0);
 DBCC CHECKIDENT ('Food', RESEED, 0);
+
+
+
+-- doanh thu thống kê doanh thu ra Bill/  bàn/  ngày vào/ ngày ra tổng tiền	
 	
 	

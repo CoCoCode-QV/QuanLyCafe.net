@@ -44,5 +44,39 @@ namespace QuanLyCafe.DAO
         {
             DataProvider.Instance.ExecuteQuery("exec PR_SwitchTable @IdTableOld , @IdTableNew , @IdBillOld , @IdBillNew", new object[] { idTableOld, idTableNew , idBillOld , idBillNew });
         }
+
+        public bool insertTable(string name)
+        {
+            int result = DataProvider.Instance.ExecuteNonQuery("insert into TableFood(nameTable) values ( @name ) ", new object[] { name });
+            return result > 0;
+        }
+
+        public bool DeleteTable(int id)
+        {
+            int result = DataProvider.Instance.ExecuteNonQuery("Delete TableFood where TableID = @id ", new object[] { id });
+            return result > 0;
+        }
+
+        public bool UpdateTable(int id, string name)
+        {
+            int result = DataProvider.Instance.ExecuteNonQuery("update TableFood set nameTable = @name  where TableID = @id ", new object[] {name, id });
+            return result > 0;
+        }
+
+        public Table getTableByIDTable(int id)
+        {
+
+            Table table = null;
+            string query = "select * from TableFood where TableID =" + id;
+            DataTable data = DataProvider.Instance.ExecuteQuery(query);
+
+            foreach (DataRow item in data.Rows)
+            {
+                table = new Table(item);
+
+            }
+
+            return table;
+        }
     }
 }
