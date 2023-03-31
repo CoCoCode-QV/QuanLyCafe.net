@@ -53,7 +53,7 @@ namespace QuanLyCafe.DAO
         public List<Bill> LoadBIll(DateTime fromdate, DateTime todate)
         {
             List<Bill> listBill = new List<Bill>();
-            DataTable data =  DataProvider.Instance.ExecuteQuery("SELECT * FROM Bill WHERE dateCheckOut >= @fromdate and  dateCheckOut <= @todate  and statusBill = 1", new object[] { fromdate, todate});
+            DataTable data =  DataProvider.Instance.ExecuteQuery("SELECT * FROM Bill WHERE  CAST(dateCheckOut AS DATE ) >= CAST( @fromdate AS DATE) and   CAST(dateCheckOut AS DATE) <=  CAST( @todate  AS DATE) and statusBill = 1", new object[] { fromdate, todate});
            foreach(DataRow item in data.Rows)
             {
                 Bill bill = new Bill(item);
@@ -62,6 +62,51 @@ namespace QuanLyCafe.DAO
 
             return listBill;
         }
-        
+
+        public int CountBillOfPeople()
+        {
+            return (int) DataProvider.Instance.ExecuteScalar("select count(*) from Bill where  CAST(GETDATE() AS DATE) = CAST( dateCheckin AS DATE)");
+        }
+
+        public int CountBillOfPeopleFinish()
+        {
+            return (int)DataProvider.Instance.ExecuteScalar("select count(*) from Bill where  CAST(GETDATE() AS DATE) = CAST( dateCheckin AS DATE) and statusBill = 1");
+        }
+
+        public int CountBillOfPeopleServing()
+        {
+            return (int)DataProvider.Instance.ExecuteScalar("select count(*) from Bill where  CAST(GETDATE() AS DATE) = CAST( dateCheckin AS DATE) and statusBill = 0");
+        }
+
+        public List<Bill> GetBill(string query)
+        {
+            List<Bill> listBill = new List<Bill>();
+            DataTable data = DataProvider.Instance.ExecuteQuery(query);
+
+            foreach (DataRow item in data.Rows)
+            {
+                Bill bill = new Bill(item);
+                listBill.Add(bill);
+            }
+            return listBill;
+        }
+
+        public List<Bill> GetBillListOfDay()
+        {
+            string query = "select * from Bill where CAST(GETDATE() AS DATE) = CAST( dateCheckin AS DATE) ";
+            return GetBill(query);
+        }
+
+        public List<Bill> GetBillListOfDayPaid()
+        {
+            string query = "select * from  Bill  where  CAST(GETDATE() AS DATE) = CAST( dateCheckOut AS DATE) and statusBill = 1";
+            return GetBill(query);
+        }
+
+        public List<Bill> GetMenuListOfDayServing()
+        {
+            string query = "select * from Bill where statusBill = 0 and CAST(GETDATE() AS DATE) = CAST( dateCheckin AS DATE) ";
+            return GetBill(query);
+        }
     }
 }

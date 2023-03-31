@@ -29,6 +29,15 @@ namespace QuanLyCafe
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.LegendItem legendItem1 = new System.Windows.Forms.DataVisualization.Charting.LegendItem();
+            System.Windows.Forms.DataVisualization.Charting.LegendCell legendCell1 = new System.Windows.Forms.DataVisualization.Charting.LegendCell();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fAdmin));
             this.tabTable = new System.Windows.Forms.TabPage();
             this.panel14 = new System.Windows.Forms.Panel();
             this.panel16 = new System.Windows.Forms.Panel();
@@ -96,9 +105,16 @@ namespace QuanLyCafe
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sellStop = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabBill = new System.Windows.Forms.TabPage();
+            this.tabRevenue = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.txtTotalRevenue = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.dataGridStatis = new System.Windows.Forms.DataGridView();
+            this.idBill = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Table = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.datecheckin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.datecheckout = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -134,11 +150,9 @@ namespace QuanLyCafe
             this.Username = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.password = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.typeAccount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idBill = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Table = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.datecheckin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.datecheckout = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabStatisticals = new System.Windows.Forms.TabPage();
+            this.chartTopFood = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.tabTable.SuspendLayout();
             this.panel14.SuspendLayout();
             this.panel16.SuspendLayout();
@@ -166,7 +180,7 @@ namespace QuanLyCafe
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtGridViewFood)).BeginInit();
-            this.tabBill.SuspendLayout();
+            this.tabRevenue.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStatis)).BeginInit();
             this.panel3.SuspendLayout();
@@ -181,6 +195,8 @@ namespace QuanLyCafe
             this.panel24.SuspendLayout();
             this.panel29.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAccount)).BeginInit();
+            this.tabStatisticals.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartTopFood)).BeginInit();
             this.SuspendLayout();
             // 
             // tabTable
@@ -188,11 +204,11 @@ namespace QuanLyCafe
             this.tabTable.Controls.Add(this.panel14);
             this.tabTable.Controls.Add(this.panel19);
             this.tabTable.Controls.Add(this.panel20);
-            this.tabTable.Location = new System.Drawing.Point(4, 28);
-            this.tabTable.Margin = new System.Windows.Forms.Padding(2);
+            this.tabTable.Location = new System.Drawing.Point(4, 32);
+            this.tabTable.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabTable.Name = "tabTable";
-            this.tabTable.Padding = new System.Windows.Forms.Padding(2);
-            this.tabTable.Size = new System.Drawing.Size(960, 499);
+            this.tabTable.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabTable.Size = new System.Drawing.Size(1283, 629);
             this.tabTable.TabIndex = 3;
             this.tabTable.Text = "Bàn ăn";
             this.tabTable.UseVisualStyleBackColor = true;
@@ -202,29 +218,29 @@ namespace QuanLyCafe
             this.panel14.Controls.Add(this.panel16);
             this.panel14.Controls.Add(this.panel17);
             this.panel14.Controls.Add(this.panel18);
-            this.panel14.Location = new System.Drawing.Point(632, 80);
-            this.panel14.Margin = new System.Windows.Forms.Padding(2);
+            this.panel14.Location = new System.Drawing.Point(843, 98);
+            this.panel14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(316, 409);
+            this.panel14.Size = new System.Drawing.Size(421, 503);
             this.panel14.TabIndex = 4;
             // 
             // panel16
             // 
             this.panel16.Controls.Add(this.txtStatusTable);
             this.panel16.Controls.Add(this.label6);
-            this.panel16.Location = new System.Drawing.Point(2, 117);
-            this.panel16.Margin = new System.Windows.Forms.Padding(2);
+            this.panel16.Location = new System.Drawing.Point(3, 144);
+            this.panel16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel16.Name = "panel16";
-            this.panel16.Size = new System.Drawing.Size(314, 49);
+            this.panel16.Size = new System.Drawing.Size(419, 60);
             this.panel16.TabIndex = 8;
             // 
             // txtStatusTable
             // 
             this.txtStatusTable.Enabled = false;
-            this.txtStatusTable.Location = new System.Drawing.Point(88, 13);
-            this.txtStatusTable.Margin = new System.Windows.Forms.Padding(2);
+            this.txtStatusTable.Location = new System.Drawing.Point(117, 16);
+            this.txtStatusTable.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtStatusTable.Name = "txtStatusTable";
-            this.txtStatusTable.Size = new System.Drawing.Size(209, 26);
+            this.txtStatusTable.Size = new System.Drawing.Size(277, 30);
             this.txtStatusTable.TabIndex = 2;
             this.txtStatusTable.Text = "Trống";
             // 
@@ -232,10 +248,9 @@ namespace QuanLyCafe
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(6, 13);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Location = new System.Drawing.Point(8, 16);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(80, 19);
+            this.label6.Size = new System.Drawing.Size(97, 23);
             this.label6.TabIndex = 0;
             this.label6.Text = "Trạng thái:";
             // 
@@ -243,28 +258,27 @@ namespace QuanLyCafe
             // 
             this.panel17.Controls.Add(this.txtNameTable);
             this.panel17.Controls.Add(this.label7);
-            this.panel17.Location = new System.Drawing.Point(2, 63);
-            this.panel17.Margin = new System.Windows.Forms.Padding(2);
+            this.panel17.Location = new System.Drawing.Point(3, 78);
+            this.panel17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel17.Name = "panel17";
-            this.panel17.Size = new System.Drawing.Size(314, 49);
+            this.panel17.Size = new System.Drawing.Size(419, 60);
             this.panel17.TabIndex = 7;
             // 
             // txtNameTable
             // 
-            this.txtNameTable.Location = new System.Drawing.Point(88, 15);
-            this.txtNameTable.Margin = new System.Windows.Forms.Padding(2);
+            this.txtNameTable.Location = new System.Drawing.Point(117, 18);
+            this.txtNameTable.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNameTable.Name = "txtNameTable";
-            this.txtNameTable.Size = new System.Drawing.Size(209, 26);
+            this.txtNameTable.Size = new System.Drawing.Size(277, 30);
             this.txtNameTable.TabIndex = 1;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(6, 13);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Location = new System.Drawing.Point(8, 16);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(59, 19);
+            this.label7.Size = new System.Drawing.Size(70, 23);
             this.label7.TabIndex = 0;
             this.label7.Text = "Số bàn:";
             // 
@@ -272,29 +286,28 @@ namespace QuanLyCafe
             // 
             this.panel18.Controls.Add(this.txtTableID);
             this.panel18.Controls.Add(this.label8);
-            this.panel18.Location = new System.Drawing.Point(2, 2);
-            this.panel18.Margin = new System.Windows.Forms.Padding(2);
+            this.panel18.Location = new System.Drawing.Point(3, 2);
+            this.panel18.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel18.Name = "panel18";
-            this.panel18.Size = new System.Drawing.Size(314, 49);
+            this.panel18.Size = new System.Drawing.Size(419, 60);
             this.panel18.TabIndex = 6;
             // 
             // txtTableID
             // 
-            this.txtTableID.Location = new System.Drawing.Point(88, 15);
-            this.txtTableID.Margin = new System.Windows.Forms.Padding(2);
+            this.txtTableID.Location = new System.Drawing.Point(117, 18);
+            this.txtTableID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtTableID.Name = "txtTableID";
             this.txtTableID.ReadOnly = true;
-            this.txtTableID.Size = new System.Drawing.Size(209, 26);
+            this.txtTableID.Size = new System.Drawing.Size(277, 30);
             this.txtTableID.TabIndex = 1;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(6, 15);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Location = new System.Drawing.Point(8, 18);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(27, 19);
+            this.label8.Size = new System.Drawing.Size(33, 23);
             this.label8.TabIndex = 0;
             this.label8.Text = "ID:";
             // 
@@ -303,10 +316,10 @@ namespace QuanLyCafe
             this.panel19.Controls.Add(this.btnEditTable);
             this.panel19.Controls.Add(this.btnRemoveTable);
             this.panel19.Controls.Add(this.btnAddTable);
-            this.panel19.Location = new System.Drawing.Point(632, 4);
-            this.panel19.Margin = new System.Windows.Forms.Padding(2);
+            this.panel19.Location = new System.Drawing.Point(843, 5);
+            this.panel19.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel19.Name = "panel19";
-            this.panel19.Size = new System.Drawing.Size(318, 72);
+            this.panel19.Size = new System.Drawing.Size(424, 89);
             this.panel19.TabIndex = 5;
             // 
             // btnEditTable
@@ -316,10 +329,10 @@ namespace QuanLyCafe
             this.btnEditTable.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEditTable.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEditTable.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnEditTable.Location = new System.Drawing.Point(206, 10);
-            this.btnEditTable.Margin = new System.Windows.Forms.Padding(2);
+            this.btnEditTable.Location = new System.Drawing.Point(275, 12);
+            this.btnEditTable.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnEditTable.Name = "btnEditTable";
-            this.btnEditTable.Size = new System.Drawing.Size(74, 60);
+            this.btnEditTable.Size = new System.Drawing.Size(99, 74);
             this.btnEditTable.TabIndex = 3;
             this.btnEditTable.Text = "Sửa";
             this.btnEditTable.UseVisualStyleBackColor = false;
@@ -332,10 +345,10 @@ namespace QuanLyCafe
             this.btnRemoveTable.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRemoveTable.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemoveTable.ForeColor = System.Drawing.Color.White;
-            this.btnRemoveTable.Location = new System.Drawing.Point(127, 10);
-            this.btnRemoveTable.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRemoveTable.Location = new System.Drawing.Point(169, 12);
+            this.btnRemoveTable.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnRemoveTable.Name = "btnRemoveTable";
-            this.btnRemoveTable.Size = new System.Drawing.Size(74, 60);
+            this.btnRemoveTable.Size = new System.Drawing.Size(99, 74);
             this.btnRemoveTable.TabIndex = 2;
             this.btnRemoveTable.Text = "Xóa";
             this.btnRemoveTable.UseVisualStyleBackColor = false;
@@ -348,10 +361,10 @@ namespace QuanLyCafe
             this.btnAddTable.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddTable.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddTable.ForeColor = System.Drawing.Color.White;
-            this.btnAddTable.Location = new System.Drawing.Point(43, 10);
-            this.btnAddTable.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAddTable.Location = new System.Drawing.Point(57, 12);
+            this.btnAddTable.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAddTable.Name = "btnAddTable";
-            this.btnAddTable.Size = new System.Drawing.Size(74, 60);
+            this.btnAddTable.Size = new System.Drawing.Size(99, 74);
             this.btnAddTable.TabIndex = 1;
             this.btnAddTable.Text = "Thêm";
             this.btnAddTable.UseVisualStyleBackColor = false;
@@ -360,10 +373,10 @@ namespace QuanLyCafe
             // panel20
             // 
             this.panel20.Controls.Add(this.dataGridViewTable);
-            this.panel20.Location = new System.Drawing.Point(11, 5);
-            this.panel20.Margin = new System.Windows.Forms.Padding(2);
+            this.panel20.Location = new System.Drawing.Point(15, 6);
+            this.panel20.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel20.Name = "panel20";
-            this.panel20.Size = new System.Drawing.Size(612, 484);
+            this.panel20.Size = new System.Drawing.Size(816, 596);
             this.panel20.TabIndex = 3;
             // 
             // dataGridViewTable
@@ -373,30 +386,33 @@ namespace QuanLyCafe
             this.IdTable,
             this.NameTable,
             this.StatusTable});
-            this.dataGridViewTable.Location = new System.Drawing.Point(2, 0);
-            this.dataGridViewTable.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridViewTable.Location = new System.Drawing.Point(3, 0);
+            this.dataGridViewTable.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridViewTable.Name = "dataGridViewTable";
             this.dataGridViewTable.RowHeadersWidth = 51;
             this.dataGridViewTable.RowTemplate.Height = 24;
-            this.dataGridViewTable.Size = new System.Drawing.Size(608, 482);
+            this.dataGridViewTable.Size = new System.Drawing.Size(811, 593);
             this.dataGridViewTable.TabIndex = 0;
             this.dataGridViewTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTable_CellClick);
             // 
             // IdTable
             // 
             this.IdTable.HeaderText = "Mã bàn ăn";
+            this.IdTable.MinimumWidth = 6;
             this.IdTable.Name = "IdTable";
             this.IdTable.Width = 155;
             // 
             // NameTable
             // 
             this.NameTable.HeaderText = "Tên bàn ";
+            this.NameTable.MinimumWidth = 6;
             this.NameTable.Name = "NameTable";
             this.NameTable.Width = 200;
             // 
             // StatusTable
             // 
             this.StatusTable.HeaderText = "Trạng thái";
+            this.StatusTable.MinimumWidth = 6;
             this.StatusTable.Name = "StatusTable";
             this.StatusTable.Width = 200;
             // 
@@ -405,11 +421,11 @@ namespace QuanLyCafe
             this.tabFoodCategory.Controls.Add(this.panel22);
             this.tabFoodCategory.Controls.Add(this.panel27);
             this.tabFoodCategory.Controls.Add(this.panel28);
-            this.tabFoodCategory.Location = new System.Drawing.Point(4, 28);
-            this.tabFoodCategory.Margin = new System.Windows.Forms.Padding(2);
+            this.tabFoodCategory.Location = new System.Drawing.Point(4, 32);
+            this.tabFoodCategory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabFoodCategory.Name = "tabFoodCategory";
-            this.tabFoodCategory.Padding = new System.Windows.Forms.Padding(2);
-            this.tabFoodCategory.Size = new System.Drawing.Size(960, 499);
+            this.tabFoodCategory.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabFoodCategory.Size = new System.Drawing.Size(1283, 629);
             this.tabFoodCategory.TabIndex = 2;
             this.tabFoodCategory.Text = "Danh mục";
             this.tabFoodCategory.UseVisualStyleBackColor = true;
@@ -418,38 +434,37 @@ namespace QuanLyCafe
             // 
             this.panel22.Controls.Add(this.panel25);
             this.panel22.Controls.Add(this.panel26);
-            this.panel22.Location = new System.Drawing.Point(634, 76);
-            this.panel22.Margin = new System.Windows.Forms.Padding(2);
+            this.panel22.Location = new System.Drawing.Point(845, 94);
+            this.panel22.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel22.Name = "panel22";
-            this.panel22.Size = new System.Drawing.Size(311, 414);
+            this.panel22.Size = new System.Drawing.Size(415, 510);
             this.panel22.TabIndex = 4;
             // 
             // panel25
             // 
             this.panel25.Controls.Add(this.txtCategoryName);
             this.panel25.Controls.Add(this.label11);
-            this.panel25.Location = new System.Drawing.Point(4, 106);
-            this.panel25.Margin = new System.Windows.Forms.Padding(2);
+            this.panel25.Location = new System.Drawing.Point(5, 130);
+            this.panel25.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel25.Name = "panel25";
-            this.panel25.Size = new System.Drawing.Size(307, 49);
+            this.panel25.Size = new System.Drawing.Size(409, 60);
             this.panel25.TabIndex = 7;
             // 
             // txtCategoryName
             // 
-            this.txtCategoryName.Location = new System.Drawing.Point(114, 13);
-            this.txtCategoryName.Margin = new System.Windows.Forms.Padding(2);
+            this.txtCategoryName.Location = new System.Drawing.Point(152, 16);
+            this.txtCategoryName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtCategoryName.Name = "txtCategoryName";
-            this.txtCategoryName.Size = new System.Drawing.Size(183, 26);
+            this.txtCategoryName.Size = new System.Drawing.Size(243, 30);
             this.txtCategoryName.TabIndex = 1;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(6, 13);
-            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label11.Location = new System.Drawing.Point(8, 16);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(105, 19);
+            this.label11.Size = new System.Drawing.Size(126, 23);
             this.label11.TabIndex = 0;
             this.label11.Text = "Tên danh mục:";
             // 
@@ -457,29 +472,28 @@ namespace QuanLyCafe
             // 
             this.panel26.Controls.Add(this.txtIDCategory);
             this.panel26.Controls.Add(this.label12);
-            this.panel26.Location = new System.Drawing.Point(4, 29);
-            this.panel26.Margin = new System.Windows.Forms.Padding(2);
+            this.panel26.Location = new System.Drawing.Point(5, 36);
+            this.panel26.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel26.Name = "panel26";
-            this.panel26.Size = new System.Drawing.Size(304, 49);
+            this.panel26.Size = new System.Drawing.Size(405, 60);
             this.panel26.TabIndex = 6;
             // 
             // txtIDCategory
             // 
-            this.txtIDCategory.Location = new System.Drawing.Point(114, 15);
-            this.txtIDCategory.Margin = new System.Windows.Forms.Padding(2);
+            this.txtIDCategory.Location = new System.Drawing.Point(152, 18);
+            this.txtIDCategory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtIDCategory.Name = "txtIDCategory";
             this.txtIDCategory.ReadOnly = true;
-            this.txtIDCategory.Size = new System.Drawing.Size(183, 26);
+            this.txtIDCategory.Size = new System.Drawing.Size(243, 30);
             this.txtIDCategory.TabIndex = 1;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(6, 15);
-            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label12.Location = new System.Drawing.Point(8, 18);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(27, 19);
+            this.label12.Size = new System.Drawing.Size(33, 23);
             this.label12.TabIndex = 0;
             this.label12.Text = "ID:";
             // 
@@ -488,10 +502,10 @@ namespace QuanLyCafe
             this.panel27.Controls.Add(this.btnEditCategory);
             this.panel27.Controls.Add(this.btnRemoveCategory);
             this.panel27.Controls.Add(this.btnAddCategory);
-            this.panel27.Location = new System.Drawing.Point(634, 5);
-            this.panel27.Margin = new System.Windows.Forms.Padding(2);
+            this.panel27.Location = new System.Drawing.Point(845, 6);
+            this.panel27.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel27.Name = "panel27";
-            this.panel27.Size = new System.Drawing.Size(311, 67);
+            this.panel27.Size = new System.Drawing.Size(415, 82);
             this.panel27.TabIndex = 5;
             // 
             // btnEditCategory
@@ -501,10 +515,10 @@ namespace QuanLyCafe
             this.btnEditCategory.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEditCategory.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEditCategory.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnEditCategory.Location = new System.Drawing.Point(197, 7);
-            this.btnEditCategory.Margin = new System.Windows.Forms.Padding(2);
+            this.btnEditCategory.Location = new System.Drawing.Point(263, 9);
+            this.btnEditCategory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnEditCategory.Name = "btnEditCategory";
-            this.btnEditCategory.Size = new System.Drawing.Size(74, 60);
+            this.btnEditCategory.Size = new System.Drawing.Size(99, 74);
             this.btnEditCategory.TabIndex = 3;
             this.btnEditCategory.Text = "Sửa";
             this.btnEditCategory.UseVisualStyleBackColor = false;
@@ -517,10 +531,10 @@ namespace QuanLyCafe
             this.btnRemoveCategory.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRemoveCategory.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemoveCategory.ForeColor = System.Drawing.Color.White;
-            this.btnRemoveCategory.Location = new System.Drawing.Point(118, 7);
-            this.btnRemoveCategory.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRemoveCategory.Location = new System.Drawing.Point(157, 9);
+            this.btnRemoveCategory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnRemoveCategory.Name = "btnRemoveCategory";
-            this.btnRemoveCategory.Size = new System.Drawing.Size(74, 60);
+            this.btnRemoveCategory.Size = new System.Drawing.Size(99, 74);
             this.btnRemoveCategory.TabIndex = 2;
             this.btnRemoveCategory.Text = "Xóa";
             this.btnRemoveCategory.UseVisualStyleBackColor = false;
@@ -533,10 +547,10 @@ namespace QuanLyCafe
             this.btnAddCategory.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddCategory.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddCategory.ForeColor = System.Drawing.Color.White;
-            this.btnAddCategory.Location = new System.Drawing.Point(39, 7);
-            this.btnAddCategory.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAddCategory.Location = new System.Drawing.Point(52, 9);
+            this.btnAddCategory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAddCategory.Name = "btnAddCategory";
-            this.btnAddCategory.Size = new System.Drawing.Size(74, 60);
+            this.btnAddCategory.Size = new System.Drawing.Size(99, 74);
             this.btnAddCategory.TabIndex = 1;
             this.btnAddCategory.Text = "Thêm";
             this.btnAddCategory.UseVisualStyleBackColor = false;
@@ -545,10 +559,10 @@ namespace QuanLyCafe
             // panel28
             // 
             this.panel28.Controls.Add(this.dtgridViewCategory);
-            this.panel28.Location = new System.Drawing.Point(4, 5);
-            this.panel28.Margin = new System.Windows.Forms.Padding(2);
+            this.panel28.Location = new System.Drawing.Point(5, 6);
+            this.panel28.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel28.Name = "panel28";
-            this.panel28.Size = new System.Drawing.Size(625, 485);
+            this.panel28.Size = new System.Drawing.Size(833, 597);
             this.panel28.TabIndex = 3;
             // 
             // dtgridViewCategory
@@ -557,12 +571,12 @@ namespace QuanLyCafe
             this.dtgridViewCategory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IDcategory,
             this.NameCategory});
-            this.dtgridViewCategory.Location = new System.Drawing.Point(4, 2);
-            this.dtgridViewCategory.Margin = new System.Windows.Forms.Padding(2);
+            this.dtgridViewCategory.Location = new System.Drawing.Point(5, 2);
+            this.dtgridViewCategory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtgridViewCategory.Name = "dtgridViewCategory";
             this.dtgridViewCategory.RowHeadersWidth = 51;
             this.dtgridViewCategory.RowTemplate.Height = 24;
-            this.dtgridViewCategory.Size = new System.Drawing.Size(621, 480);
+            this.dtgridViewCategory.Size = new System.Drawing.Size(828, 591);
             this.dtgridViewCategory.TabIndex = 0;
             this.dtgridViewCategory.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgridViewCategory_CellClick);
             // 
@@ -586,11 +600,11 @@ namespace QuanLyCafe
             this.tabFood.Controls.Add(this.panel7);
             this.tabFood.Controls.Add(this.panel6);
             this.tabFood.Controls.Add(this.panel5);
-            this.tabFood.Location = new System.Drawing.Point(4, 28);
-            this.tabFood.Margin = new System.Windows.Forms.Padding(2);
+            this.tabFood.Location = new System.Drawing.Point(4, 32);
+            this.tabFood.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabFood.Name = "tabFood";
-            this.tabFood.Padding = new System.Windows.Forms.Padding(2);
-            this.tabFood.Size = new System.Drawing.Size(960, 499);
+            this.tabFood.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabFood.Size = new System.Drawing.Size(1283, 629);
             this.tabFood.TabIndex = 1;
             this.tabFood.Text = "Thức ăn";
             this.tabFood.UseVisualStyleBackColor = true;
@@ -599,10 +613,10 @@ namespace QuanLyCafe
             // 
             this.panel8.Controls.Add(this.btnSearchFood);
             this.panel8.Controls.Add(this.txtSearch);
-            this.panel8.Location = new System.Drawing.Point(647, 7);
-            this.panel8.Margin = new System.Windows.Forms.Padding(2);
+            this.panel8.Location = new System.Drawing.Point(863, 9);
+            this.panel8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(301, 60);
+            this.panel8.Size = new System.Drawing.Size(401, 74);
             this.panel8.TabIndex = 2;
             // 
             // btnSearchFood
@@ -612,10 +626,10 @@ namespace QuanLyCafe
             this.btnSearchFood.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSearchFood.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearchFood.ForeColor = System.Drawing.Color.White;
-            this.btnSearchFood.Location = new System.Drawing.Point(226, 0);
-            this.btnSearchFood.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSearchFood.Location = new System.Drawing.Point(301, 0);
+            this.btnSearchFood.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSearchFood.Name = "btnSearchFood";
-            this.btnSearchFood.Size = new System.Drawing.Size(74, 60);
+            this.btnSearchFood.Size = new System.Drawing.Size(99, 74);
             this.btnSearchFood.TabIndex = 5;
             this.btnSearchFood.Text = "Tìm";
             this.btnSearchFood.UseVisualStyleBackColor = false;
@@ -623,10 +637,10 @@ namespace QuanLyCafe
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(11, 22);
-            this.txtSearch.Margin = new System.Windows.Forms.Padding(2);
+            this.txtSearch.Location = new System.Drawing.Point(15, 27);
+            this.txtSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(198, 26);
+            this.txtSearch.Size = new System.Drawing.Size(263, 30);
             this.txtSearch.TabIndex = 0;
             // 
             // panel7
@@ -636,20 +650,20 @@ namespace QuanLyCafe
             this.panel7.Controls.Add(this.panel11);
             this.panel7.Controls.Add(this.panel10);
             this.panel7.Controls.Add(this.panel9);
-            this.panel7.Location = new System.Drawing.Point(647, 72);
-            this.panel7.Margin = new System.Windows.Forms.Padding(2);
+            this.panel7.Location = new System.Drawing.Point(863, 89);
+            this.panel7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(301, 418);
+            this.panel7.Size = new System.Drawing.Size(401, 514);
             this.panel7.TabIndex = 1;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.comboBoxSellStop);
             this.panel1.Controls.Add(this.label15);
-            this.panel1.Location = new System.Drawing.Point(2, 235);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Location = new System.Drawing.Point(3, 289);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(296, 49);
+            this.panel1.Size = new System.Drawing.Size(395, 60);
             this.panel1.TabIndex = 9;
             // 
             // comboBoxSellStop
@@ -658,20 +672,19 @@ namespace QuanLyCafe
             this.comboBoxSellStop.Items.AddRange(new object[] {
             "Còn bán",
             "Ngừng bán"});
-            this.comboBoxSellStop.Location = new System.Drawing.Point(88, 15);
-            this.comboBoxSellStop.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxSellStop.Location = new System.Drawing.Point(117, 18);
+            this.comboBoxSellStop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBoxSellStop.Name = "comboBoxSellStop";
-            this.comboBoxSellStop.Size = new System.Drawing.Size(200, 27);
+            this.comboBoxSellStop.Size = new System.Drawing.Size(265, 31);
             this.comboBoxSellStop.TabIndex = 1;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(8, 17);
-            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label15.Location = new System.Drawing.Point(11, 21);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(80, 19);
+            this.label15.Size = new System.Drawing.Size(97, 23);
             this.label15.TabIndex = 0;
             this.label15.Text = "Trạng thái:";
             // 
@@ -679,33 +692,32 @@ namespace QuanLyCafe
             // 
             this.panel12.Controls.Add(this.nmPrice);
             this.panel12.Controls.Add(this.label4);
-            this.panel12.Location = new System.Drawing.Point(4, 181);
-            this.panel12.Margin = new System.Windows.Forms.Padding(2);
+            this.panel12.Location = new System.Drawing.Point(5, 223);
+            this.panel12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(296, 49);
+            this.panel12.Size = new System.Drawing.Size(395, 60);
             this.panel12.TabIndex = 9;
             // 
             // nmPrice
             // 
-            this.nmPrice.Location = new System.Drawing.Point(88, 13);
-            this.nmPrice.Margin = new System.Windows.Forms.Padding(2);
+            this.nmPrice.Location = new System.Drawing.Point(117, 16);
+            this.nmPrice.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nmPrice.Maximum = new decimal(new int[] {
             1410065408,
             2,
             0,
             0});
             this.nmPrice.Name = "nmPrice";
-            this.nmPrice.Size = new System.Drawing.Size(199, 26);
+            this.nmPrice.Size = new System.Drawing.Size(265, 30);
             this.nmPrice.TabIndex = 1;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(6, 13);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Location = new System.Drawing.Point(8, 16);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 19);
+            this.label4.Size = new System.Drawing.Size(41, 23);
             this.label4.TabIndex = 0;
             this.label4.Text = "Giá:";
             // 
@@ -713,29 +725,28 @@ namespace QuanLyCafe
             // 
             this.panel11.Controls.Add(this.cbboxCategoryFood);
             this.panel11.Controls.Add(this.label3);
-            this.panel11.Location = new System.Drawing.Point(2, 128);
-            this.panel11.Margin = new System.Windows.Forms.Padding(2);
+            this.panel11.Location = new System.Drawing.Point(3, 158);
+            this.panel11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(296, 49);
+            this.panel11.Size = new System.Drawing.Size(395, 60);
             this.panel11.TabIndex = 8;
             // 
             // cbboxCategoryFood
             // 
             this.cbboxCategoryFood.FormattingEnabled = true;
-            this.cbboxCategoryFood.Location = new System.Drawing.Point(88, 15);
-            this.cbboxCategoryFood.Margin = new System.Windows.Forms.Padding(2);
+            this.cbboxCategoryFood.Location = new System.Drawing.Point(117, 18);
+            this.cbboxCategoryFood.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbboxCategoryFood.Name = "cbboxCategoryFood";
-            this.cbboxCategoryFood.Size = new System.Drawing.Size(200, 27);
+            this.cbboxCategoryFood.Size = new System.Drawing.Size(265, 31);
             this.cbboxCategoryFood.TabIndex = 1;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 17);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(8, 21);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(79, 19);
+            this.label3.Size = new System.Drawing.Size(96, 23);
             this.label3.TabIndex = 0;
             this.label3.Text = "Danh mục:";
             // 
@@ -743,28 +754,27 @@ namespace QuanLyCafe
             // 
             this.panel10.Controls.Add(this.txtNameFood);
             this.panel10.Controls.Add(this.label2);
-            this.panel10.Location = new System.Drawing.Point(2, 74);
-            this.panel10.Margin = new System.Windows.Forms.Padding(2);
+            this.panel10.Location = new System.Drawing.Point(3, 91);
+            this.panel10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(296, 49);
+            this.panel10.Size = new System.Drawing.Size(395, 60);
             this.panel10.TabIndex = 7;
             // 
             // txtNameFood
             // 
-            this.txtNameFood.Location = new System.Drawing.Point(88, 15);
-            this.txtNameFood.Margin = new System.Windows.Forms.Padding(2);
+            this.txtNameFood.Location = new System.Drawing.Point(117, 18);
+            this.txtNameFood.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNameFood.Name = "txtNameFood";
-            this.txtNameFood.Size = new System.Drawing.Size(200, 26);
+            this.txtNameFood.Size = new System.Drawing.Size(265, 30);
             this.txtNameFood.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(6, 13);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(8, 16);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 19);
+            this.label2.Size = new System.Drawing.Size(83, 23);
             this.label2.TabIndex = 0;
             this.label2.Text = "Tên món:";
             // 
@@ -772,29 +782,28 @@ namespace QuanLyCafe
             // 
             this.panel9.Controls.Add(this.txtIDFood);
             this.panel9.Controls.Add(this.label1);
-            this.panel9.Location = new System.Drawing.Point(2, 20);
-            this.panel9.Margin = new System.Windows.Forms.Padding(2);
+            this.panel9.Location = new System.Drawing.Point(3, 25);
+            this.panel9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(296, 49);
+            this.panel9.Size = new System.Drawing.Size(395, 60);
             this.panel9.TabIndex = 6;
             // 
             // txtIDFood
             // 
-            this.txtIDFood.Location = new System.Drawing.Point(88, 15);
-            this.txtIDFood.Margin = new System.Windows.Forms.Padding(2);
+            this.txtIDFood.Location = new System.Drawing.Point(117, 18);
+            this.txtIDFood.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtIDFood.Name = "txtIDFood";
             this.txtIDFood.ReadOnly = true;
-            this.txtIDFood.Size = new System.Drawing.Size(200, 26);
+            this.txtIDFood.Size = new System.Drawing.Size(265, 30);
             this.txtIDFood.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 15);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(8, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(27, 19);
+            this.label1.Size = new System.Drawing.Size(33, 23);
             this.label1.TabIndex = 0;
             this.label1.Text = "ID:";
             // 
@@ -803,10 +812,10 @@ namespace QuanLyCafe
             this.panel6.Controls.Add(this.btnEditFood);
             this.panel6.Controls.Add(this.btnRemoveFood);
             this.panel6.Controls.Add(this.btnAddFood);
-            this.panel6.Location = new System.Drawing.Point(153, 5);
-            this.panel6.Margin = new System.Windows.Forms.Padding(2);
+            this.panel6.Location = new System.Drawing.Point(204, 6);
+            this.panel6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(291, 60);
+            this.panel6.Size = new System.Drawing.Size(388, 74);
             this.panel6.TabIndex = 1;
             // 
             // btnEditFood
@@ -816,10 +825,10 @@ namespace QuanLyCafe
             this.btnEditFood.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEditFood.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEditFood.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnEditFood.Location = new System.Drawing.Point(196, -1);
-            this.btnEditFood.Margin = new System.Windows.Forms.Padding(2);
+            this.btnEditFood.Location = new System.Drawing.Point(261, -1);
+            this.btnEditFood.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnEditFood.Name = "btnEditFood";
-            this.btnEditFood.Size = new System.Drawing.Size(74, 60);
+            this.btnEditFood.Size = new System.Drawing.Size(99, 74);
             this.btnEditFood.TabIndex = 3;
             this.btnEditFood.Text = "Sửa";
             this.btnEditFood.UseVisualStyleBackColor = false;
@@ -832,10 +841,10 @@ namespace QuanLyCafe
             this.btnRemoveFood.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRemoveFood.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemoveFood.ForeColor = System.Drawing.Color.White;
-            this.btnRemoveFood.Location = new System.Drawing.Point(96, -1);
-            this.btnRemoveFood.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRemoveFood.Location = new System.Drawing.Point(128, -1);
+            this.btnRemoveFood.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnRemoveFood.Name = "btnRemoveFood";
-            this.btnRemoveFood.Size = new System.Drawing.Size(74, 60);
+            this.btnRemoveFood.Size = new System.Drawing.Size(99, 74);
             this.btnRemoveFood.TabIndex = 2;
             this.btnRemoveFood.Text = "Xóa";
             this.btnRemoveFood.UseVisualStyleBackColor = false;
@@ -849,9 +858,9 @@ namespace QuanLyCafe
             this.btnAddFood.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddFood.ForeColor = System.Drawing.Color.White;
             this.btnAddFood.Location = new System.Drawing.Point(0, 0);
-            this.btnAddFood.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAddFood.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAddFood.Name = "btnAddFood";
-            this.btnAddFood.Size = new System.Drawing.Size(74, 60);
+            this.btnAddFood.Size = new System.Drawing.Size(99, 74);
             this.btnAddFood.TabIndex = 1;
             this.btnAddFood.Text = "Thêm";
             this.btnAddFood.UseVisualStyleBackColor = false;
@@ -860,10 +869,10 @@ namespace QuanLyCafe
             // panel5
             // 
             this.panel5.Controls.Add(this.dtGridViewFood);
-            this.panel5.Location = new System.Drawing.Point(4, 67);
-            this.panel5.Margin = new System.Windows.Forms.Padding(2);
+            this.panel5.Location = new System.Drawing.Point(5, 82);
+            this.panel5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(640, 422);
+            this.panel5.Size = new System.Drawing.Size(853, 519);
             this.panel5.TabIndex = 0;
             // 
             // dtGridViewFood
@@ -876,12 +885,12 @@ namespace QuanLyCafe
             this.Price,
             this.Category,
             this.sellStop});
-            this.dtGridViewFood.Location = new System.Drawing.Point(2, 2);
-            this.dtGridViewFood.Margin = new System.Windows.Forms.Padding(2);
+            this.dtGridViewFood.Location = new System.Drawing.Point(3, 2);
+            this.dtGridViewFood.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtGridViewFood.Name = "dtGridViewFood";
             this.dtGridViewFood.RowHeadersWidth = 51;
             this.dtGridViewFood.RowTemplate.Height = 24;
-            this.dtGridViewFood.Size = new System.Drawing.Size(636, 418);
+            this.dtGridViewFood.Size = new System.Drawing.Size(848, 514);
             this.dtGridViewFood.TabIndex = 0;
             this.dtGridViewFood.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtGridViewFood_CellClick);
             // 
@@ -918,28 +927,48 @@ namespace QuanLyCafe
             this.sellStop.HeaderText = "Trạng thái";
             this.sellStop.MinimumWidth = 6;
             this.sellStop.Name = "sellStop";
+            this.sellStop.Width = 125;
             // 
-            // tabBill
+            // tabRevenue
             // 
-            this.tabBill.Controls.Add(this.panel4);
-            this.tabBill.Controls.Add(this.panel3);
-            this.tabBill.Location = new System.Drawing.Point(4, 28);
-            this.tabBill.Margin = new System.Windows.Forms.Padding(2);
-            this.tabBill.Name = "tabBill";
-            this.tabBill.Padding = new System.Windows.Forms.Padding(2);
-            this.tabBill.Size = new System.Drawing.Size(960, 499);
-            this.tabBill.TabIndex = 0;
-            this.tabBill.Text = "Doanh thu";
-            this.tabBill.UseVisualStyleBackColor = true;
+            this.tabRevenue.Controls.Add(this.panel4);
+            this.tabRevenue.Controls.Add(this.panel3);
+            this.tabRevenue.Location = new System.Drawing.Point(4, 32);
+            this.tabRevenue.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabRevenue.Name = "tabRevenue";
+            this.tabRevenue.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabRevenue.Size = new System.Drawing.Size(1283, 629);
+            this.tabRevenue.TabIndex = 0;
+            this.tabRevenue.Text = "Doanh thu";
+            this.tabRevenue.UseVisualStyleBackColor = true;
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.txtTotalRevenue);
+            this.panel4.Controls.Add(this.label18);
             this.panel4.Controls.Add(this.dataGridStatis);
-            this.panel4.Location = new System.Drawing.Point(14, 62);
-            this.panel4.Margin = new System.Windows.Forms.Padding(2);
+            this.panel4.Location = new System.Drawing.Point(19, 76);
+            this.panel4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(934, 433);
+            this.panel4.Size = new System.Drawing.Size(1245, 533);
             this.panel4.TabIndex = 1;
+            // 
+            // txtTotalRevenue
+            // 
+            this.txtTotalRevenue.Location = new System.Drawing.Point(957, 497);
+            this.txtTotalRevenue.Name = "txtTotalRevenue";
+            this.txtTotalRevenue.Size = new System.Drawing.Size(285, 30);
+            this.txtTotalRevenue.TabIndex = 2;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(740, 493);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(205, 32);
+            this.label18.TabIndex = 1;
+            this.label18.Text = "Tổng doanh thu:";
             // 
             // dataGridStatis
             // 
@@ -950,13 +979,50 @@ namespace QuanLyCafe
             this.datecheckin,
             this.datecheckout,
             this.totalPrice});
-            this.dataGridStatis.Location = new System.Drawing.Point(2, 2);
-            this.dataGridStatis.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridStatis.Location = new System.Drawing.Point(3, 2);
+            this.dataGridStatis.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridStatis.Name = "dataGridStatis";
             this.dataGridStatis.RowHeadersWidth = 51;
             this.dataGridStatis.RowTemplate.Height = 24;
-            this.dataGridStatis.Size = new System.Drawing.Size(944, 452);
+            this.dataGridStatis.Size = new System.Drawing.Size(1242, 489);
             this.dataGridStatis.TabIndex = 0;
+            // 
+            // idBill
+            // 
+            this.idBill.HeaderText = "Mã hóa đơn";
+            this.idBill.MinimumWidth = 6;
+            this.idBill.Name = "idBill";
+            this.idBill.Width = 148;
+            // 
+            // Table
+            // 
+            this.Table.HeaderText = "Bàn";
+            this.Table.MinimumWidth = 6;
+            this.Table.Name = "Table";
+            this.Table.Width = 150;
+            // 
+            // datecheckin
+            // 
+            this.datecheckin.HeaderText = "Ngày vào";
+            this.datecheckin.MinimumWidth = 6;
+            this.datecheckin.Name = "datecheckin";
+            this.datecheckin.Width = 200;
+            // 
+            // datecheckout
+            // 
+            this.datecheckout.HeaderText = "Ngày ra";
+            this.datecheckout.MinimumWidth = 6;
+            this.datecheckout.Name = "datecheckout";
+            this.datecheckout.Width = 200;
+            // 
+            // totalPrice
+            // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.totalPrice.DefaultCellStyle = dataGridViewCellStyle1;
+            this.totalPrice.HeaderText = "Tổng tiền";
+            this.totalPrice.MinimumWidth = 6;
+            this.totalPrice.Name = "totalPrice";
+            this.totalPrice.Width = 180;
             // 
             // panel3
             // 
@@ -965,20 +1031,19 @@ namespace QuanLyCafe
             this.panel3.Controls.Add(this.btnStatis);
             this.panel3.Controls.Add(this.dtpkToDate);
             this.panel3.Controls.Add(this.dtpkFromDate);
-            this.panel3.Location = new System.Drawing.Point(14, 0);
-            this.panel3.Margin = new System.Windows.Forms.Padding(2);
+            this.panel3.Location = new System.Drawing.Point(19, 0);
+            this.panel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(932, 57);
+            this.panel3.Size = new System.Drawing.Size(1243, 70);
             this.panel3.TabIndex = 0;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(35, 23);
-            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label14.Location = new System.Drawing.Point(47, 28);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(64, 17);
+            this.label14.Size = new System.Drawing.Size(73, 20);
             this.label14.TabIndex = 5;
             this.label14.Text = "Từ ngày:";
             // 
@@ -986,10 +1051,9 @@ namespace QuanLyCafe
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(629, 21);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Location = new System.Drawing.Point(839, 26);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(73, 17);
+            this.label5.Size = new System.Drawing.Size(84, 20);
             this.label5.TabIndex = 4;
             this.label5.Text = "Đến ngày:";
             // 
@@ -1001,58 +1065,61 @@ namespace QuanLyCafe
             this.btnStatis.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnStatis.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStatis.ForeColor = System.Drawing.Color.White;
-            this.btnStatis.Location = new System.Drawing.Point(385, 2);
-            this.btnStatis.Margin = new System.Windows.Forms.Padding(2);
+            this.btnStatis.Location = new System.Drawing.Point(513, 2);
+            this.btnStatis.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnStatis.Name = "btnStatis";
-            this.btnStatis.Size = new System.Drawing.Size(164, 52);
+            this.btnStatis.Size = new System.Drawing.Size(219, 64);
             this.btnStatis.TabIndex = 3;
             this.btnStatis.Text = "Thống kê";
             this.btnStatis.UseVisualStyleBackColor = false;
+            this.btnStatis.Click += new System.EventHandler(this.btnStatis_Click);
             // 
             // dtpkToDate
             // 
             this.dtpkToDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpkToDate.Location = new System.Drawing.Point(718, 17);
-            this.dtpkToDate.Margin = new System.Windows.Forms.Padding(2);
+            this.dtpkToDate.Location = new System.Drawing.Point(957, 21);
+            this.dtpkToDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtpkToDate.Name = "dtpkToDate";
-            this.dtpkToDate.Size = new System.Drawing.Size(163, 23);
+            this.dtpkToDate.Size = new System.Drawing.Size(216, 27);
             this.dtpkToDate.TabIndex = 2;
             // 
             // dtpkFromDate
             // 
             this.dtpkFromDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpkFromDate.Location = new System.Drawing.Point(110, 17);
-            this.dtpkFromDate.Margin = new System.Windows.Forms.Padding(2);
+            this.dtpkFromDate.Location = new System.Drawing.Point(147, 21);
+            this.dtpkFromDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtpkFromDate.Name = "dtpkFromDate";
-            this.dtpkFromDate.Size = new System.Drawing.Size(164, 23);
+            this.dtpkFromDate.Size = new System.Drawing.Size(217, 27);
             this.dtpkFromDate.TabIndex = 1;
             this.dtpkFromDate.Value = new System.DateTime(2023, 3, 9, 22, 27, 15, 0);
             // 
             // tab
             // 
-            this.tab.Controls.Add(this.tabBill);
+            this.tab.Controls.Add(this.tabRevenue);
             this.tab.Controls.Add(this.tabFood);
             this.tab.Controls.Add(this.tabFoodCategory);
             this.tab.Controls.Add(this.tabTable);
             this.tab.Controls.Add(this.tabAccount);
+            this.tab.Controls.Add(this.tabStatisticals);
             this.tab.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tab.Location = new System.Drawing.Point(9, 10);
-            this.tab.Margin = new System.Windows.Forms.Padding(2);
+            this.tab.Location = new System.Drawing.Point(12, 12);
+            this.tab.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tab.Name = "tab";
             this.tab.SelectedIndex = 0;
-            this.tab.Size = new System.Drawing.Size(968, 531);
+            this.tab.Size = new System.Drawing.Size(1291, 665);
             this.tab.TabIndex = 0;
+            this.tab.SelectedIndexChanged += new System.EventHandler(this.tab_SelectedIndexChanged);
             // 
             // tabAccount
             // 
             this.tabAccount.Controls.Add(this.panel2);
             this.tabAccount.Controls.Add(this.panel24);
             this.tabAccount.Controls.Add(this.panel29);
-            this.tabAccount.Location = new System.Drawing.Point(4, 28);
-            this.tabAccount.Margin = new System.Windows.Forms.Padding(2);
+            this.tabAccount.Location = new System.Drawing.Point(4, 32);
+            this.tabAccount.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabAccount.Name = "tabAccount";
-            this.tabAccount.Padding = new System.Windows.Forms.Padding(2);
-            this.tabAccount.Size = new System.Drawing.Size(960, 499);
+            this.tabAccount.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabAccount.Size = new System.Drawing.Size(1283, 629);
             this.tabAccount.TabIndex = 4;
             this.tabAccount.Text = "Tài khoản";
             this.tabAccount.UseVisualStyleBackColor = true;
@@ -1064,38 +1131,37 @@ namespace QuanLyCafe
             this.panel2.Controls.Add(this.panel15);
             this.panel2.Controls.Add(this.panel21);
             this.panel2.Controls.Add(this.panel23);
-            this.panel2.Location = new System.Drawing.Point(634, 104);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2);
+            this.panel2.Location = new System.Drawing.Point(845, 128);
+            this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(315, 384);
+            this.panel2.Size = new System.Drawing.Size(420, 473);
             this.panel2.TabIndex = 4;
             // 
             // panel30
             // 
             this.panel30.Controls.Add(this.txtPassword);
             this.panel30.Controls.Add(this.label17);
-            this.panel30.Location = new System.Drawing.Point(0, 160);
-            this.panel30.Margin = new System.Windows.Forms.Padding(2);
+            this.panel30.Location = new System.Drawing.Point(0, 197);
+            this.panel30.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel30.Name = "panel30";
-            this.panel30.Size = new System.Drawing.Size(313, 49);
+            this.panel30.Size = new System.Drawing.Size(417, 60);
             this.panel30.TabIndex = 9;
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(120, 10);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(2);
+            this.txtPassword.Location = new System.Drawing.Point(160, 12);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(188, 26);
+            this.txtPassword.Size = new System.Drawing.Size(249, 30);
             this.txtPassword.TabIndex = 1;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(6, 13);
-            this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label17.Location = new System.Drawing.Point(8, 16);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(75, 19);
+            this.label17.Size = new System.Drawing.Size(91, 23);
             this.label17.TabIndex = 0;
             this.label17.Text = "Mật khẩu:";
             // 
@@ -1103,28 +1169,27 @@ namespace QuanLyCafe
             // 
             this.panel13.Controls.Add(this.txtUser);
             this.panel13.Controls.Add(this.label16);
-            this.panel13.Location = new System.Drawing.Point(2, 108);
-            this.panel13.Margin = new System.Windows.Forms.Padding(2);
+            this.panel13.Location = new System.Drawing.Point(3, 133);
+            this.panel13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(313, 49);
+            this.panel13.Size = new System.Drawing.Size(417, 60);
             this.panel13.TabIndex = 8;
             // 
             // txtUser
             // 
-            this.txtUser.Location = new System.Drawing.Point(120, 10);
-            this.txtUser.Margin = new System.Windows.Forms.Padding(2);
+            this.txtUser.Location = new System.Drawing.Point(160, 12);
+            this.txtUser.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtUser.Name = "txtUser";
-            this.txtUser.Size = new System.Drawing.Size(188, 26);
+            this.txtUser.Size = new System.Drawing.Size(249, 30);
             this.txtUser.TabIndex = 1;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(6, 13);
-            this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label16.Location = new System.Drawing.Point(8, 16);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(111, 19);
+            this.label16.Size = new System.Drawing.Size(133, 23);
             this.label16.TabIndex = 0;
             this.label16.Text = "Tên đăng nhập:";
             // 
@@ -1132,10 +1197,10 @@ namespace QuanLyCafe
             // 
             this.panel15.Controls.Add(this.cbTypeUser);
             this.panel15.Controls.Add(this.label9);
-            this.panel15.Location = new System.Drawing.Point(2, 213);
-            this.panel15.Margin = new System.Windows.Forms.Padding(2);
+            this.panel15.Location = new System.Drawing.Point(3, 262);
+            this.panel15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel15.Name = "panel15";
-            this.panel15.Size = new System.Drawing.Size(313, 49);
+            this.panel15.Size = new System.Drawing.Size(417, 60);
             this.panel15.TabIndex = 8;
             // 
             // cbTypeUser
@@ -1144,20 +1209,19 @@ namespace QuanLyCafe
             this.cbTypeUser.Items.AddRange(new object[] {
             "Quản lý",
             "Nhân viên"});
-            this.cbTypeUser.Location = new System.Drawing.Point(120, 15);
-            this.cbTypeUser.Margin = new System.Windows.Forms.Padding(2);
+            this.cbTypeUser.Location = new System.Drawing.Point(160, 18);
+            this.cbTypeUser.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbTypeUser.Name = "cbTypeUser";
-            this.cbTypeUser.Size = new System.Drawing.Size(188, 27);
+            this.cbTypeUser.Size = new System.Drawing.Size(249, 31);
             this.cbTypeUser.TabIndex = 1;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(6, 13);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Location = new System.Drawing.Point(8, 16);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(103, 19);
+            this.label9.Size = new System.Drawing.Size(123, 23);
             this.label9.TabIndex = 0;
             this.label9.Text = "Loại tài khoản";
             // 
@@ -1165,28 +1229,27 @@ namespace QuanLyCafe
             // 
             this.panel21.Controls.Add(this.txtDisplay);
             this.panel21.Controls.Add(this.label10);
-            this.panel21.Location = new System.Drawing.Point(0, 55);
-            this.panel21.Margin = new System.Windows.Forms.Padding(2);
+            this.panel21.Location = new System.Drawing.Point(0, 68);
+            this.panel21.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel21.Name = "panel21";
-            this.panel21.Size = new System.Drawing.Size(315, 49);
+            this.panel21.Size = new System.Drawing.Size(420, 60);
             this.panel21.TabIndex = 7;
             // 
             // txtDisplay
             // 
-            this.txtDisplay.Location = new System.Drawing.Point(120, 15);
-            this.txtDisplay.Margin = new System.Windows.Forms.Padding(2);
+            this.txtDisplay.Location = new System.Drawing.Point(160, 18);
+            this.txtDisplay.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtDisplay.Name = "txtDisplay";
-            this.txtDisplay.Size = new System.Drawing.Size(188, 26);
+            this.txtDisplay.Size = new System.Drawing.Size(249, 30);
             this.txtDisplay.TabIndex = 1;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(6, 13);
-            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Location = new System.Drawing.Point(8, 16);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(89, 19);
+            this.label10.Size = new System.Drawing.Size(108, 23);
             this.label10.TabIndex = 0;
             this.label10.Text = "Tên hiển thị:";
             // 
@@ -1194,29 +1257,28 @@ namespace QuanLyCafe
             // 
             this.panel23.Controls.Add(this.txtIDAccount);
             this.panel23.Controls.Add(this.label13);
-            this.panel23.Location = new System.Drawing.Point(2, 2);
-            this.panel23.Margin = new System.Windows.Forms.Padding(2);
+            this.panel23.Location = new System.Drawing.Point(3, 2);
+            this.panel23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel23.Name = "panel23";
-            this.panel23.Size = new System.Drawing.Size(313, 49);
+            this.panel23.Size = new System.Drawing.Size(417, 60);
             this.panel23.TabIndex = 6;
             // 
             // txtIDAccount
             // 
-            this.txtIDAccount.Location = new System.Drawing.Point(120, 15);
-            this.txtIDAccount.Margin = new System.Windows.Forms.Padding(2);
+            this.txtIDAccount.Location = new System.Drawing.Point(160, 18);
+            this.txtIDAccount.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtIDAccount.Name = "txtIDAccount";
             this.txtIDAccount.ReadOnly = true;
-            this.txtIDAccount.Size = new System.Drawing.Size(188, 26);
+            this.txtIDAccount.Size = new System.Drawing.Size(249, 30);
             this.txtIDAccount.TabIndex = 1;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(6, 15);
-            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label13.Location = new System.Drawing.Point(8, 18);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(100, 19);
+            this.label13.Size = new System.Drawing.Size(120, 23);
             this.label13.TabIndex = 0;
             this.label13.Text = "Mã tài khoản:";
             // 
@@ -1225,10 +1287,10 @@ namespace QuanLyCafe
             this.panel24.Controls.Add(this.btnEditUser);
             this.panel24.Controls.Add(this.btnRemoveUser);
             this.panel24.Controls.Add(this.btnAddUser);
-            this.panel24.Location = new System.Drawing.Point(634, 5);
-            this.panel24.Margin = new System.Windows.Forms.Padding(2);
+            this.panel24.Location = new System.Drawing.Point(845, 6);
+            this.panel24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel24.Name = "panel24";
-            this.panel24.Size = new System.Drawing.Size(315, 94);
+            this.panel24.Size = new System.Drawing.Size(420, 116);
             this.panel24.TabIndex = 5;
             // 
             // btnEditUser
@@ -1238,10 +1300,10 @@ namespace QuanLyCafe
             this.btnEditUser.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEditUser.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEditUser.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnEditUser.Location = new System.Drawing.Point(203, 20);
-            this.btnEditUser.Margin = new System.Windows.Forms.Padding(2);
+            this.btnEditUser.Location = new System.Drawing.Point(271, 25);
+            this.btnEditUser.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnEditUser.Name = "btnEditUser";
-            this.btnEditUser.Size = new System.Drawing.Size(74, 60);
+            this.btnEditUser.Size = new System.Drawing.Size(99, 74);
             this.btnEditUser.TabIndex = 3;
             this.btnEditUser.Text = "Sửa";
             this.btnEditUser.UseVisualStyleBackColor = false;
@@ -1254,10 +1316,10 @@ namespace QuanLyCafe
             this.btnRemoveUser.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRemoveUser.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemoveUser.ForeColor = System.Drawing.Color.White;
-            this.btnRemoveUser.Location = new System.Drawing.Point(124, 20);
-            this.btnRemoveUser.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRemoveUser.Location = new System.Drawing.Point(165, 25);
+            this.btnRemoveUser.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnRemoveUser.Name = "btnRemoveUser";
-            this.btnRemoveUser.Size = new System.Drawing.Size(74, 60);
+            this.btnRemoveUser.Size = new System.Drawing.Size(99, 74);
             this.btnRemoveUser.TabIndex = 2;
             this.btnRemoveUser.Text = "Xóa";
             this.btnRemoveUser.UseVisualStyleBackColor = false;
@@ -1270,10 +1332,10 @@ namespace QuanLyCafe
             this.btnAddUser.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddUser.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddUser.ForeColor = System.Drawing.Color.White;
-            this.btnAddUser.Location = new System.Drawing.Point(45, 20);
-            this.btnAddUser.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAddUser.Location = new System.Drawing.Point(60, 25);
+            this.btnAddUser.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAddUser.Name = "btnAddUser";
-            this.btnAddUser.Size = new System.Drawing.Size(74, 60);
+            this.btnAddUser.Size = new System.Drawing.Size(99, 74);
             this.btnAddUser.TabIndex = 1;
             this.btnAddUser.Text = "Thêm";
             this.btnAddUser.UseVisualStyleBackColor = false;
@@ -1282,10 +1344,10 @@ namespace QuanLyCafe
             // panel29
             // 
             this.panel29.Controls.Add(this.dataGridViewAccount);
-            this.panel29.Location = new System.Drawing.Point(11, 5);
-            this.panel29.Margin = new System.Windows.Forms.Padding(2);
+            this.panel29.Location = new System.Drawing.Point(15, 6);
+            this.panel29.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel29.Name = "panel29";
-            this.panel29.Size = new System.Drawing.Size(621, 483);
+            this.panel29.Size = new System.Drawing.Size(828, 594);
             this.panel29.TabIndex = 3;
             // 
             // dataGridViewAccount
@@ -1298,75 +1360,102 @@ namespace QuanLyCafe
             this.password,
             this.typeAccount});
             this.dataGridViewAccount.Location = new System.Drawing.Point(0, 2);
-            this.dataGridViewAccount.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridViewAccount.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridViewAccount.Name = "dataGridViewAccount";
             this.dataGridViewAccount.RowHeadersWidth = 51;
             this.dataGridViewAccount.RowTemplate.Height = 24;
-            this.dataGridViewAccount.Size = new System.Drawing.Size(619, 479);
+            this.dataGridViewAccount.Size = new System.Drawing.Size(825, 590);
             this.dataGridViewAccount.TabIndex = 0;
             this.dataGridViewAccount.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAccount_CellClick);
             // 
             // idAccount
             // 
             this.idAccount.HeaderText = "Mã tài khoản";
+            this.idAccount.MinimumWidth = 6;
             this.idAccount.Name = "idAccount";
             this.idAccount.Width = 115;
             // 
             // DisplayName
             // 
             this.DisplayName.HeaderText = "Tên hiển thị";
+            this.DisplayName.MinimumWidth = 6;
             this.DisplayName.Name = "DisplayName";
             this.DisplayName.Width = 115;
             // 
             // Username
             // 
             this.Username.HeaderText = "Tên đăng nhập";
+            this.Username.MinimumWidth = 6;
             this.Username.Name = "Username";
             this.Username.Width = 125;
             // 
             // password
             // 
             this.password.HeaderText = "Mật khẩu";
+            this.password.MinimumWidth = 6;
             this.password.Name = "password";
+            this.password.Width = 125;
             // 
             // typeAccount
             // 
             this.typeAccount.HeaderText = "Loại tài khoản";
+            this.typeAccount.MinimumWidth = 6;
             this.typeAccount.Name = "typeAccount";
             this.typeAccount.Width = 120;
             // 
-            // idBill
+            // tabStatisticals
             // 
-            this.idBill.HeaderText = "Mã hóa đơn";
-            this.idBill.Name = "idBill";
+            this.tabStatisticals.Controls.Add(this.chartTopFood);
+            this.tabStatisticals.Location = new System.Drawing.Point(4, 32);
+            this.tabStatisticals.Name = "tabStatisticals";
+            this.tabStatisticals.Padding = new System.Windows.Forms.Padding(3);
+            this.tabStatisticals.Size = new System.Drawing.Size(1283, 629);
+            this.tabStatisticals.TabIndex = 5;
+            this.tabStatisticals.Text = "Thống kê";
+            this.tabStatisticals.UseVisualStyleBackColor = true;
             // 
-            // Table
+            // chartTopFood
             // 
-            this.Table.HeaderText = "Bàn";
-            this.Table.Name = "Table";
+            chartArea1.Name = "ChartArea1";
+            this.chartTopFood.ChartAreas.Add(chartArea1);
+            this.chartTopFood.Dock = System.Windows.Forms.DockStyle.Fill;
+            legendCell1.CellType = System.Windows.Forms.DataVisualization.Charting.LegendCellType.SeriesSymbol;
+            legendCell1.Name = "Cell1";
+            legendItem1.Cells.Add(legendCell1);
+            legend1.CustomItems.Add(legendItem1);
+            legend1.Name = "Legend1";
+            this.chartTopFood.Legends.Add(legend1);
+            this.chartTopFood.Location = new System.Drawing.Point(3, 3);
+            this.chartTopFood.Name = "chartTopFood";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Số lượng";
+            series1.YValuesPerPoint = 4;
+            this.chartTopFood.Series.Add(series1);
+            this.chartTopFood.Size = new System.Drawing.Size(1277, 623);
+            this.chartTopFood.TabIndex = 0;
+            title1.BackColor = System.Drawing.Color.Silver;
+            title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title1.Name = "Title1";
+            title1.Text = "Các món ăn bán chạy nhất";
+            this.chartTopFood.Titles.Add(title1);
             // 
-            // datecheckin
+            // imageList1
             // 
-            this.datecheckin.HeaderText = "Ngày vào";
-            this.datecheckin.Name = "datecheckin";
-            // 
-            // datecheckout
-            // 
-            this.datecheckout.HeaderText = "Ngày ra";
-            this.datecheckout.Name = "datecheckout";
-            // 
-            // totalPrice
-            // 
-            this.totalPrice.HeaderText = "totalPrice";
-            this.totalPrice.Name = "totalPrice";
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // fAdmin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(994, 550);
+            this.ClientSize = new System.Drawing.Size(1316, 690);
             this.Controls.Add(this.tab);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MaximizeBox = false;
             this.Name = "fAdmin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản lý";
@@ -1408,8 +1497,9 @@ namespace QuanLyCafe
             this.panel6.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtGridViewFood)).EndInit();
-            this.tabBill.ResumeLayout(false);
+            this.tabRevenue.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridStatis)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
@@ -1429,6 +1519,8 @@ namespace QuanLyCafe
             this.panel24.ResumeLayout(false);
             this.panel29.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAccount)).EndInit();
+            this.tabStatisticals.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartTopFood)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1459,7 +1551,7 @@ namespace QuanLyCafe
         private System.Windows.Forms.Button btnAddFood;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.DataGridView dtGridViewFood;
-        private System.Windows.Forms.TabPage tabBill;
+        private System.Windows.Forms.TabPage tabRevenue;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.DataGridView dataGridStatis;
         private System.Windows.Forms.Panel panel3;
@@ -1539,10 +1631,15 @@ namespace QuanLyCafe
         private System.Windows.Forms.Panel panel30;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TabPage tabStatisticals;
+        private System.Windows.Forms.TextBox txtTotalRevenue;
+        private System.Windows.Forms.Label label18;
         private System.Windows.Forms.DataGridViewTextBoxColumn idBill;
         private System.Windows.Forms.DataGridViewTextBoxColumn Table;
         private System.Windows.Forms.DataGridViewTextBoxColumn datecheckin;
         private System.Windows.Forms.DataGridViewTextBoxColumn datecheckout;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalPrice;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartTopFood;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }

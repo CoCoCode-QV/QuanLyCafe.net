@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Menu = QuanLyCafe.DTO.Menu;
 
 namespace QuanLyCafe
 {
@@ -18,20 +19,10 @@ namespace QuanLyCafe
         public fAdmin()
         {
             InitializeComponent();
-            load();
+            LoadRevenue();
         }
 
         #region methods
-        private void load()
-        {
-
-            LoadStatis();
-            loadListFood();
-            loadCategoryByListFood();
-            LoadListCategory();
-            loadTable();
-            LoadAccount();
-        }
 
         private void loadListFood()
         {
@@ -66,20 +57,80 @@ namespace QuanLyCafe
 
         }
 
-        private void LoadStatis()
+        private void LoadRevenue()
         {
             dataGridStatis.Rows.Clear();
             DateTime dateFrom = dtpkFromDate.Value;
             DateTime dateTo = dtpkToDate.Value;
             List<Bill> listCategory = BillDAO.Ins.LoadBIll(dateFrom, dateTo);
+            float TotalRevenue = 0;
             foreach (Bill item in listCategory)
             {
                 Table table = TableDAO.Ins.getTableByIDTable(item.TableId);
-                dataGridStatis.Rows.Add(item.BillId , table.Name , item.DateCheckIn, item.DateCheckOut);
+                List<Menu> menus = MenuDAO.Ins.GetMenuByBill(item.BillId);
+                float PriceTotal = 0;
+                foreach(Menu temp in menus)
+                {
+                    PriceTotal += temp.Total;
+                }
+                float TotalReduce = PriceTotal - (PriceTotal * item.Discount / 100);
+                TotalRevenue += TotalReduce;
+                string formattedTotal = $"{TotalReduce:N0} VNĐ";
+                dataGridStatis.Rows.Add(item.BillId , table.Name , item.DateCheckIn, item.DateCheckOut, formattedTotal);
             }
+            string formattedTotalRevenue = $"{TotalRevenue:N0} VNĐ";
+            txtTotalRevenue.Text = formattedTotalRevenue;
+        }
+
+        private void LoadStatisticals()
+        {
+            chartTopFood.ChartAreas["ChartArea1"].AxisX.Title = "Tên sản phẩm";
+            chartTopFood.ChartAreas["ChartArea1"].AxisY.Title = "Số lượng sản phẩm đã bán ra";
+
+            List<Menu> listFoodTopselling = new List<Menu>();
+            listFoodTopselling = MenuDAO.Ins.GetTopSellingFoods();
+
+            foreach (Menu item in listFoodTopselling)
+            {
+                chartTopFood.Series["Số lượng"].Points.AddXY(item.FoodName, item.Count);
+            }
+
+
+
         }
         #endregion
 
+        #region event tap
+        private void tab_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            int selectedIndex = tab.SelectedIndex;
+
+
+            switch (selectedIndex)
+            {
+                case 0:
+                    // Xử lý cho tab con thứ nhất
+                    break;
+                case 1:
+                    loadListFood();
+                    loadCategoryByListFood();
+                    break;
+                case 2:
+                    LoadListCategory();
+                    break;
+                case 3:
+                    loadTable();
+                    break;
+                case 4:
+                    LoadAccount();
+                    break;
+                default:
+                    LoadStatisticals();
+                    break;
+            }
+        }
+        #endregion
 
         #region event Food
         private void btnAddFood_Click(object sender, EventArgs e)
@@ -485,9 +536,18 @@ namespace QuanLyCafe
             }
         }
 
+
+
         #endregion
+
       
+        #region event Revenue
+        private void btnStatis_Click(object sender, EventArgs e)
+        {
+            LoadRevenue();
+        }
+        #endregion
+
       
-     
     }
 }

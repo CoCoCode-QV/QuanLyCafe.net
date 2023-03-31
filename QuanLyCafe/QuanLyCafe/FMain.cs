@@ -1,4 +1,4 @@
-﻿    using QuanLyCafe.DAO;
+﻿ using QuanLyCafe.DAO;
 using QuanLyCafe.DTO;
 using System;
 using System.Collections.Generic;
@@ -120,12 +120,7 @@ namespace QuanLyCafe
             this.Close();
         }
 
-        private void thôngTinCáNhânToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            fAccountProfile f = new fAccountProfile();
-            f.ShowDialog();
-        }
-
+      
         private void quảnLýToolStripMenuItem_Click(object sender, EventArgs e)
         {
             fAdmin f = new fAdmin();
@@ -223,9 +218,15 @@ namespace QuanLyCafe
                 TotalPrice += item.Total;
             }
             float TotalReduce = TotalPrice - (TotalPrice * (float)nmDisCount.Value / 100);
-            string strPrice = string.Format(new CultureInfo("vi-VN"), "{0:#,##0} VNĐ", TotalReduce);
-            txtTotalPrice.Text = strPrice;
+            string formattedTotal = $"{TotalReduce:N0} VNĐ";
+            txtTotalPrice.Text = formattedTotal;
         }
         #endregion
+
+        private void tổngQuanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fOverview f = new fOverview();
+            f.ShowDialog();
+        }
     }
 }

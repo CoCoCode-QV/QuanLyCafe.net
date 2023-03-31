@@ -21,23 +21,38 @@ namespace QuanLyCafe.DAO
         private MenuDAO() { }
 
         #endregion
+        
+        //Phương thức chung
+        public List<Menu> GetMenu(string query)
+        {
+            List<Menu> listMenu = new List<Menu>();
+            DataTable data = DataProvider.Instance.ExecuteQuery(query);
+
+            foreach (DataRow item in data.Rows)
+            {
+                Menu menu = new Menu(item);
+                listMenu.Add(menu);
+            }
+            return listMenu;
+        }
 
         public List<Menu> GetListMenuByTable(int id)
         {
-            List<Menu> ListData = new List<Menu>();
-
             string query = "select f.name, bi.count, f.price, Total = (f.price *bi.count) from Food f, Bill B, Billinfo Bi where f.FoodID = Bi.foodID and bi.billID = b.billID and b.statusBill = 0 and b.TableID = " + id;
-            DataTable data = DataProvider.Instance.ExecuteQuery(query); 
-
-            foreach(DataRow item in data.Rows)
-            {
-                Menu menu = new Menu(item);
-                ListData.Add(menu);
-            }
-
-            return ListData;
+            return GetMenu(query);
         }
 
+        public List<Menu> GetMenuByBill(int id)
+        {
+            string query = "select f.name, bi.count, f.price, Total = (f.price *bi.count) from Food f, Billinfo Bi where f.FoodID = Bi.foodID and billID = " + id;
+            return GetMenu(query);
+        }
 
+        public List<Menu> GetTopSellingFoods()
+        {
+            string query = " EXEC GetTopSellingFoods ";
+            return GetMenu(query);
+        }
+      
     }
 }

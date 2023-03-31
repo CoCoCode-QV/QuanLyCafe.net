@@ -127,12 +127,12 @@ values(2,1,2)
 -- Login
 
 go 
-create proc PR_Login
+alter proc PR_Login
 @username nvarchar(100), @password nvarchar(100)
 as
 begin 
 	select * from dbo.Account 
-	where userName = @username and password = @password COLLATE Latin1_General_CS_AS 
+	where userName = @username COLLATE Latin1_General_CS_AS  and password = @password COLLATE Latin1_General_CS_AS 
 end
 
 
@@ -365,15 +365,25 @@ begin
 	
 end
 
+-- create proc 
+go
+alter PROCEDURE GetTopSellingFoods
+AS
+BEGIN
+    SELECT TOP 10 Food.name, SUM(Billinfo.count) AS count, price = 0, total = 0
+    FROM Food join Billinfo ON Food.FoodID = Billinfo.foodID
+    GROUP BY Food.name
+    ORDER BY count DESC
+END
 
+EXEC GetTopSellingFoods
 
-select * from TableFood where TableID = 1
 
 select * from Bill
-select * from TableFood
-select * from Billinfo
-select * from Account
 select * from Food
+select * from Billinfo
+select * from TableFood
+select * from Account
 select * from FoodCategory
 
 delete dbo.Bill

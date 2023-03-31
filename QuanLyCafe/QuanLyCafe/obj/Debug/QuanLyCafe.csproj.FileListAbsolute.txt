@@ -15,7 +15,6 @@ D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\bin\Debug\QuanLyCafe.exe.conf
 D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\bin\Debug\QuanLyCafe.exe
 D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\bin\Debug\QuanLyCafe.pdb
 D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\obj\Debug\QuanLyCafe.csproj.AssemblyReference.cache
-D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\obj\Debug\QuanLyCafe.fAccountProfile.resources
 D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\obj\Debug\QuanLyCafe.fAdmin.resources
 D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\obj\Debug\QuanLyCafe.fLogin.resources
 D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\obj\Debug\QuanLyCafe.fMain.resources
@@ -24,3 +23,4 @@ D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\obj\Debug\QuanLyCafe.csproj.G
 D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\obj\Debug\QuanLyCafe.csproj.CoreCompileInputs.cache
 D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\obj\Debug\QuanLyCafe.exe
 D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\obj\Debug\QuanLyCafe.pdb
+D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\obj\Debug\QuanLyCafe.fOverview.resources
