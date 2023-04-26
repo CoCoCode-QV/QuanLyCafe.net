@@ -24,3 +24,8 @@ D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\obj\Debug\QuanLyCafe.csproj.C
 D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\obj\Debug\QuanLyCafe.exe
 D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\obj\Debug\QuanLyCafe.pdb
 D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\obj\Debug\QuanLyCafe.fOverview.resources
+D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\bin\Debug\EPPlus.Interfaces.dll
+D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\bin\Debug\EPPlus.System.Drawing.dll
+D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll
+D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml
+D:\LTCSDL_223\QuanLyCafe.net\QuanLyCafe\QuanLyCafe\obj\Debug\QuanLyCafe.csproj.CopyComplete

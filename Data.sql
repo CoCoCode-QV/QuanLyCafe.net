@@ -365,19 +365,45 @@ begin
 	
 end
 
--- create proc 
-go
-alter PROCEDURE GetTopSellingFoods
-AS
-BEGIN
-    SELECT TOP 10 Food.name, SUM(Billinfo.count) AS count, price = 0, total = 0
-    FROM Food join Billinfo ON Food.FoodID = Billinfo.foodID
+
+-- create proc Get Top selling of the month
+go 
+create procedure GetTopSellingOfTheMonth
+as
+begin
+	SELECT TOP 10 Food.name, SUM(Billinfo.count) AS count, price = 0, total = 0
+    FROM Food join Billinfo ON Food.FoodID = Billinfo.foodID join Bill ON Billinfo.billID = Bill.billID
+	Where  dateCheckOut >=DATEADD(DAY, -30, GETDATE())  AND dateCheckOut <= getdate()
     GROUP BY Food.name
     ORDER BY count DESC
-END
+end
 
-EXEC GetTopSellingFoods
+-- create proc Get Top selling of the week
 
+go 
+create procedure GetTopSellingOfTheWeek
+as
+begin
+	SELECT TOP 10 Food.name, SUM(Billinfo.count) AS count, price = 0, total = 0
+    FROM Food join Billinfo ON Food.FoodID = Billinfo.foodID join Bill ON Billinfo.billID = Bill.billID
+	Where  dateCheckOut >=DATEADD(DAY, -7, GETDATE())  AND dateCheckOut <= getdate()
+    GROUP BY Food.name
+    ORDER BY count DESC
+end
+
+
+go 
+alter procedure GetTopSellingOfTheDay
+as
+begin
+	SELECT TOP 10 Food.name, SUM(Billinfo.count) AS count, price = 0, total = 0
+    FROM Food join Billinfo ON Food.FoodID = Billinfo.foodID join Bill ON Billinfo.billID = Bill.billID
+	WHERE CAST(dateCheckOut AS DATE) = CAST(GETDATE() AS DATE)
+    GROUP BY Food.name
+    ORDER BY count DESC
+end
+
+exec GetTopSellingOfTheDay
 
 select * from Bill
 select * from Food

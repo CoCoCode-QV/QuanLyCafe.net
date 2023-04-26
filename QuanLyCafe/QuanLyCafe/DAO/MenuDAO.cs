@@ -53,6 +53,24 @@ namespace QuanLyCafe.DAO
             string query = " EXEC GetTopSellingFoods ";
             return GetMenu(query);
         }
-      
+
+        public List<Menu> GetToSellingOfTheMonth()
+        {
+            string query = "exec GetTopSellingOfTheMonth";
+            return GetMenu(query);
+        }
+
+        public List<Menu> GetToSellingOfTheWeek()
+        {
+            string query = "exec GetTopSellingOfTheWeek";
+            return GetMenu(query);
+        }
+        public List<Menu> GetToSellingOfTheDay()
+        {
+            string query = "exec GetTopSellingOfTheDay";
+            return GetMenu(query);
+        }
+
+
     }
 }

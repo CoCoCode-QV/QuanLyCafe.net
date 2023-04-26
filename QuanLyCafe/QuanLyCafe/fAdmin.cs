@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -51,7 +52,7 @@ namespace QuanLyCafe
             List<Category> listCategory = CategoryDAO.Ins.GetListCategory();
             foreach (Category item in listCategory)
             {
-               
+
                 dtgridViewCategory.Rows.Add(item.CategoryID, item.NameCategory);
             }
 
@@ -69,38 +70,59 @@ namespace QuanLyCafe
                 Table table = TableDAO.Ins.getTableByIDTable(item.TableId);
                 List<Menu> menus = MenuDAO.Ins.GetMenuByBill(item.BillId);
                 float PriceTotal = 0;
-                foreach(Menu temp in menus)
+                foreach (Menu temp in menus)
                 {
                     PriceTotal += temp.Total;
                 }
                 float TotalReduce = PriceTotal - (PriceTotal * item.Discount / 100);
                 TotalRevenue += TotalReduce;
                 string formattedTotal = $"{TotalReduce:N0} VNĐ";
-                dataGridStatis.Rows.Add(item.BillId , table.Name , item.DateCheckIn, item.DateCheckOut, formattedTotal);
+                dataGridStatis.Rows.Add(item.BillId, table.Name, item.DateCheckIn, item.DateCheckOut, formattedTotal);
             }
             string formattedTotalRevenue = $"{TotalRevenue:N0} VNĐ";
             txtTotalRevenue.Text = formattedTotalRevenue;
         }
 
-        private void LoadStatisticals()
+        private void LoadStatisticals(List<Menu> listFoodTopselling)
         {
+            chartTopFood.Series["Số lượng"].Points.Clear();
             chartTopFood.ChartAreas["ChartArea1"].AxisX.Title = "Tên sản phẩm";
             chartTopFood.ChartAreas["ChartArea1"].AxisY.Title = "Số lượng sản phẩm đã bán ra";
-
-            List<Menu> listFoodTopselling = new List<Menu>();
-            listFoodTopselling = MenuDAO.Ins.GetTopSellingFoods();
 
             foreach (Menu item in listFoodTopselling)
             {
                 chartTopFood.Series["Số lượng"].Points.AddXY(item.FoodName, item.Count);
             }
-
-
-
         }
+
+        private void LoadStatisticMonth()
+        {
+            List<Menu> listFoodTopselling = new List<Menu>();
+            listFoodTopselling = MenuDAO.Ins.GetToSellingOfTheMonth();
+            LoadStatisticals(listFoodTopselling);
+        }
+
+        private void LoadStatisticWeek()
+        {
+            List<Menu> listFoodTopselling = new List<Menu>();
+            listFoodTopselling = MenuDAO.Ins.GetToSellingOfTheWeek();
+            LoadStatisticals(listFoodTopselling);
+        }
+
+        private void LoadStatisticDay()
+        {
+            List<Menu> listFoodTopselling = new List<Menu>();
+            listFoodTopselling = MenuDAO.Ins.GetToSellingOfTheDay();
+            LoadStatisticals(listFoodTopselling);
+        }
+
+
+
+
+
         #endregion
 
-        #region event tap
+        #region event tab
         private void tab_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -110,7 +132,7 @@ namespace QuanLyCafe
             switch (selectedIndex)
             {
                 case 0:
-                    // Xử lý cho tab con thứ nhất
+                    LoadRevenue();
                     break;
                 case 1:
                     loadListFood();
@@ -126,7 +148,7 @@ namespace QuanLyCafe
                     LoadAccount();
                     break;
                 default:
-                    LoadStatisticals();
+                    LoadStatisticMonth();
                     break;
             }
         }
@@ -139,7 +161,7 @@ namespace QuanLyCafe
             int categoryID = (cbboxCategoryFood.SelectedItem as Category).CategoryID;
             float price = (float)nmPrice.Value;
             int sellStop = comboBoxSellStop.Text == "Còn bán" ? 0 : 1;
-            if (name == "" || categoryID == 0 || price == 0 )
+            if (name == "" || categoryID == 0 || price == 0)
             {
                 MessageBox.Show("Bạn cần điền đầy đủ và chính xác! ", "Thông báo");
                 return;
@@ -165,7 +187,7 @@ namespace QuanLyCafe
 
             if (FoodDAO.Ins.UpdateFood(id, name, categoryID, price, sellStop))
             {
-                MessageBox.Show("Sửa món thành công" , "Thông báo", MessageBoxButtons.OK);
+                MessageBox.Show("Sửa món thành công", "Thông báo", MessageBoxButtons.OK);
                 loadListFood();
             }
             else
@@ -174,7 +196,7 @@ namespace QuanLyCafe
             }
 
         }
-            
+
         private void btnRemoveFood_Click(object sender, EventArgs e)
         {
 
@@ -200,10 +222,10 @@ namespace QuanLyCafe
                         }
                         else
                         {
-                            MessageBox.Show("Sản phẩm hiện đang ở trong một hóa đơn","Thông báo" ,MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("Sản phẩm hiện đang ở trong một hóa đơn", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
-                      
-                    }    
+
+                    }
                 }
                 loadListFood();
             }
@@ -215,7 +237,7 @@ namespace QuanLyCafe
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0) // Kiểm tra xem người dùng có click vào tiêu đề của bảng không
             {
                 DataGridViewRow row = dtGridViewFood.Rows[e.RowIndex];
-                if (row.Cells[0].Value == null || row.Cells[1].Value == null || row.Cells[2].Value == null || row.Cells[3].Value == null ||row.Cells[4] == null)
+                if (row.Cells[0].Value == null || row.Cells[1].Value == null || row.Cells[2].Value == null || row.Cells[3].Value == null || row.Cells[4] == null)
                     return;
                 txtIDFood.Text = row.Cells[0].Value.ToString();
                 txtNameFood.Text = row.Cells[1].Value.ToString();
@@ -223,6 +245,31 @@ namespace QuanLyCafe
                 cbboxCategoryFood.Text = row.Cells[3].Value.ToString();
                 comboBoxSellStop.Text = row.Cells[4].Value.ToString();
             }
+        }
+
+        private Stopwatch _stopwatch;
+        private const int _DWELL_TIME_THRESHOLD = 300;
+        private Timer _searchTimer;
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        { 
+            if (_stopwatch == null)
+            {
+                _stopwatch = Stopwatch.StartNew();
+            }
+            else
+            {
+                _stopwatch.Restart();
+            }
+
+            if (_searchTimer == null)
+            {
+                _searchTimer = new Timer();
+                _searchTimer.Interval = _DWELL_TIME_THRESHOLD;
+                _searchTimer.Tick += new EventHandler(btnSearchFood_Click);
+            }
+            _searchTimer.Stop();
+            _searchTimer.Start();
         }
 
         private void btnSearchFood_Click(object sender, EventArgs e)
@@ -234,7 +281,7 @@ namespace QuanLyCafe
             {
                 Category category = CategoryDAO.Ins.GetCategoryByID(item.CategoryId);
                 string sellstop = item.SellStop != 1 ? "Còn bán" : "Ngừng bán";
-                dtGridViewFood.Rows.Add(item.Id, item.Name, item.Price, category.NameCategory,sellstop );
+                dtGridViewFood.Rows.Add(item.Id, item.Name, item.Price, category.NameCategory, sellstop);
             }
         }
         #endregion
@@ -257,11 +304,11 @@ namespace QuanLyCafe
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0) // Kiểm tra xem người dùng có click vào tiêu đề của bảng không
             {
                 DataGridViewRow row = dtgridViewCategory.Rows[e.RowIndex];
-                if (row.Cells[0].Value == null || row.Cells[1].Value == null )
+                if (row.Cells[0].Value == null || row.Cells[1].Value == null)
                     return;
                 txtCategoryName.Text = row.Cells[1].Value.ToString();
                 txtIDCategory.Text = row.Cells[0].Value.ToString();
-               
+
             }
         }
 
@@ -282,7 +329,7 @@ namespace QuanLyCafe
                     if (MessageBox.Show("Bạn có muốn xóa  " + row.Cells[1].Value, "Thông báo", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
                     {
 
-                        if(CategoryDAO.Ins.DeleteCategory(id))
+                        if (CategoryDAO.Ins.DeleteCategory(id))
                         {
                             MessageBox.Show("Xóa thành công!", "Thông báo");
                             LoadListCategory();
@@ -295,7 +342,7 @@ namespace QuanLyCafe
 
                     }
                 }
-                
+
             }
         }
 
@@ -303,13 +350,13 @@ namespace QuanLyCafe
         {
             int id = Convert.ToInt32(txtIDCategory.Text);
             string name = txtCategoryName.Text;
-            if(name == null )
+            if (name == null)
             {
                 MessageBox.Show("Bạn cần điền đầy đủ và chính xác! ", "Thông báo");
                 return;
             }
 
-            if (CategoryDAO.Ins.UpdateCategory(id,name))
+            if (CategoryDAO.Ins.UpdateCategory(id, name))
             {
                 MessageBox.Show("Cập nhật danh mục thành công", "Thông báo", MessageBoxButtons.OK);
                 LoadListCategory();
@@ -327,12 +374,12 @@ namespace QuanLyCafe
             dataGridViewTable.Rows.Clear();
             List<Table> listtable = TableDAO.Ins.loadTableList();
 
-            foreach(Table item in listtable)
+            foreach (Table item in listtable)
             {
                 dataGridViewTable.Rows.Add(item.Id, item.Name, item.Status);
             }
-            
-            
+
+
         }
 
         private void dataGridViewTable_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -351,7 +398,7 @@ namespace QuanLyCafe
 
         private void btnAddTable_Click(object sender, EventArgs e)
         {
-            string name = "Bàn "+ txtNameTable.Text;
+            string name = "Bàn " + txtNameTable.Text;
             if (name == null)
                 return;
             if (TableDAO.Ins.insertTable(name))
@@ -395,7 +442,7 @@ namespace QuanLyCafe
 
                     }
                 }
-            }  
+            }
         }
 
         private void btnEditTable_Click(object sender, EventArgs e)
@@ -426,20 +473,20 @@ namespace QuanLyCafe
             dataGridViewAccount.Rows.Clear();
             List<Account> listAccount = AccountDAO.Ins.LoadAccount();
 
-            foreach(Account item in listAccount)
+            foreach (Account item in listAccount)
             {
                 string password = AccountDAO.Ins.HashPassword(item.PassWord);
                 string type = item.Type == 1 ? "Quản lý" : "Nhân viên";
                 dataGridViewAccount.Rows.Add(item.AccountID, item.DisplayName, item.UserName, password, type);
             }
         }
-        
+
         private void dataGridViewAccount_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0) // Kiểm tra xem người dùng có click vào tiêu đề của bảng không
             {
                 DataGridViewRow row = dataGridViewAccount.Rows[e.RowIndex];
-                if (row.Cells[0].Value == null || row.Cells[1].Value == null || row.Cells[2].Value == null || row.Cells[3].Value == null|| row.Cells[4].Value == null)
+                if (row.Cells[0].Value == null || row.Cells[1].Value == null || row.Cells[2].Value == null || row.Cells[3].Value == null || row.Cells[4].Value == null)
                     return;
                 txtIDAccount.Text = row.Cells[0].Value.ToString();
                 txtDisplay.Text = row.Cells[1].Value.ToString();
@@ -457,12 +504,12 @@ namespace QuanLyCafe
             string passwords = AccountDAO.Ins.HashPassword(txtPassword.Text);
             int type = cbTypeUser.Text == "Quản lý" ? 1 : 0;
 
-            if (displayname == null || userName ==null || passwords == null || type == null)
+            if (displayname == null || userName == null || passwords == null || type == null)
             {
                 MessageBox.Show("Cần nhập đầy đủ các trường thông tin", "Thông báo", MessageBoxButtons.OK);
                 return;
-            }    
-            if (AccountDAO.Ins.insertAccount(displayname,userName,passwords,type))
+            }
+            if (AccountDAO.Ins.insertAccount(displayname, userName, passwords, type))
             {
                 MessageBox.Show("Thêm tài khoản thành công", "Thông báo", MessageBoxButtons.OK);
                 LoadAccount();
@@ -491,7 +538,7 @@ namespace QuanLyCafe
                     {
                         MessageBox.Show("Tài khoản này không được xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
-                    }    
+                    }
                     if (MessageBox.Show("Bạn có muốn xóa  " + row.Cells[1].Value, "Thông báo", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
                     {
 
@@ -540,14 +587,37 @@ namespace QuanLyCafe
 
         #endregion
 
-      
         #region event Revenue
         private void btnStatis_Click(object sender, EventArgs e)
         {
             LoadRevenue();
         }
+
+
+
         #endregion
 
-      
+        #region event Statistic
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedIndex == -1)
+                return;
+            int selectedIndex = comboBox1.SelectedIndex;
+            switch (selectedIndex)
+            {
+                case 0:
+                    LoadStatisticMonth();
+                    break;
+                case 1:
+                    LoadStatisticDay();
+                    break;
+                default:
+                    LoadStatisticWeek();
+                    break;
+            }
+
+
+        }
+        #endregion
     }
 }

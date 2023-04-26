@@ -6,9 +6,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Menu = QuanLyCafe.DTO.Menu;
 
@@ -45,15 +46,16 @@ namespace QuanLyCafe
 
             foreach(Table item  in Table)
             {
-                Button btn = new Button() { Width = 100, Height = 100 };
+                Button btn = new Button() { Width = 90, Height = 90};
                 btn.Text = item.Name;
                 btn.Name = item.Id.ToString();
                 btn.Tag = item;
+                btn.Font = new Font("Arial", 12);
                 btn.Click += Btn_Click;
                 switch(item.Status)
                 {
                     case "Trống":
-                        btn.BackColor = Color.Aqua;
+                        btn.BackColor = Color.LightSeaGreen;
                         break;
                     default:
                         btn.BackColor = Color.IndianRed;
@@ -88,6 +90,7 @@ namespace QuanLyCafe
             }
             string strPrice = string.Format(new CultureInfo("vi-VN"), "{0:#,##0} VNĐ", TotalPrice);
             txtTotalPrice.Text = strPrice;
+            txtReceived.Text = string.Format(new CultureInfo("vi-VN"), "{0:#,##0} VNĐ", 0); ;
 
         }
 
@@ -173,16 +176,30 @@ namespace QuanLyCafe
                 return;
             int idBill = BillDAO.Ins.getUnchecBillIdbyTableID(table.Id);
             int discount =(int)nmDisCount.Value;
-            if (idBill != -1)
+
+            try
             {
-                if(MessageBox.Show("Bạn có muốn thanh toán hóa đơn " + table.Name, "Thông báo", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                string strReturn = txtMoneyReturn.Text.Replace(" VNĐ", "");
+                float MoneyReturn = float.Parse(strReturn);
+                if (MoneyReturn < 0)
                 {
-                    BillDAO.Ins.CheckOut(idBill,discount);
-                    showBill(table.Id);
-                    LoadTable();
+                    MessageBox.Show("Vui lòng nhập số tiền nhận của khách hàng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (idBill != -1)
+                {
+                    if (MessageBox.Show("Bạn có muốn thanh toán hóa đơn " + table.Name, "Thông báo", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                    {
+                        BillDAO.Ins.CheckOut(idBill, discount);
+                        showBill(table.Id);
+                        LoadTable();
+                    }
                 }
             }
-            
+            catch (FormatException ex)
+            {
+                MessageBox.Show("Vui lòng nhập số tiền nhận của khách hàng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }         
         }
 
         private void btnSwitchTable_Click(object sender, EventArgs e)
@@ -203,7 +220,6 @@ namespace QuanLyCafe
           
             TableDAO.Ins.SwitchTablebyIDBill(tableOld.Id, tableNew.Id, idBillOld, idBillNew);
             LoadTable();
-            //lỗi
         }
 
 
@@ -221,12 +237,58 @@ namespace QuanLyCafe
             string formattedTotal = $"{TotalReduce:N0} VNĐ";
             txtTotalPrice.Text = formattedTotal;
         }
-        #endregion
 
         private void tổngQuanToolStripMenuItem_Click(object sender, EventArgs e)
         {
             fOverview f = new fOverview();
             f.ShowDialog();
         }
+
+        private void txtReceived_Enter(object sender, EventArgs e)
+        {
+            string strReceived = txtReceived.Text.Replace(" VNĐ", "");
+            string strTotalPrice = txtTotalPrice.Text.Replace(" VNĐ", "");
+            try
+            {
+                float totalPrice = float.Parse(strTotalPrice);
+                float Received = strReceived != "" ? float.Parse(strReceived) : 0;
+                float MoneyReturn = Received - totalPrice;
+                txtMoneyReturn.Text = string.Format(new CultureInfo("vi-VN"), "{0:#,##0} VNĐ", MoneyReturn);
+            }catch(FormatException ex)
+            {
+                return;
+            }
+
+        }
+
+        private Stopwatch _stopwatch;
+        private const int _DWELL_TIME_THRESHOLD = 500;
+        private Timer _searchTimer;
+        private void txtReceived_TextChanged(object sender, EventArgs e)
+        {
+            if (_stopwatch == null)
+            {
+                _stopwatch = Stopwatch.StartNew();
+            }
+            else
+            {
+                _stopwatch.Restart();
+            }
+
+            if (_searchTimer == null)
+            {
+                _searchTimer = new Timer();
+                _searchTimer.Interval = _DWELL_TIME_THRESHOLD;
+                _searchTimer.Tick += new EventHandler(txtReceived_Enter);
+            }
+            _searchTimer.Stop();
+            _searchTimer.Start();
+        }
+
+        #endregion
+
+
+
+
     }
 }
